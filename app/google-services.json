@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "840698463441",
+    "firebase_url": "https://esp32-1a047-default-rtdb.firebaseio.com",
+    "project_id": "esp32-1a047",
+    "storage_bucket": "esp32-1a047.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840698463441:android:323cfb153829737249b1f0",
+        "android_client_info": {
+          "package_name": "com.devapp.appforarduino"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "840698463441-nkkqb0fb7vlrif8en2oqdbi8guvmkr55.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKNBHNS423dwKves8wjSignzV5PGTbsDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "840698463441-nkkqb0fb7vlrif8en2oqdbi8guvmkr55.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

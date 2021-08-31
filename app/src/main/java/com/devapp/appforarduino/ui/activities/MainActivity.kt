@@ -1,18 +1,16 @@
-package com.devapp.appforarduino
+package com.devapp.appforarduino.ui.activities
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import com.devapp.appforarduino.databinding.ActivityMainBinding
 import android.view.ViewTreeObserver
-import androidx.core.graphics.translationMatrix
 import com.afollestad.dragselectrecyclerview.DragSelectReceiver
 import com.afollestad.dragselectrecyclerview.DragSelectTouchListener
 import com.afollestad.dragselectrecyclerview.Mode
-import java.lang.Exception
-import kotlin.math.truncate
+import com.devapp.appforarduino.LaunchPadAdapter
+import com.devapp.appforarduino.data.model.PixelData
 
 
 class MainActivity : AppCompatActivity() {

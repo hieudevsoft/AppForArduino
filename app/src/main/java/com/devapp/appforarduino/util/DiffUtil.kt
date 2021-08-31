@@ -1,8 +1,9 @@
-package com.devapp.appforarduino
+package com.devapp.appforarduino.util
 
 import androidx.recyclerview.widget.DiffUtil
+import com.devapp.appforarduino.data.model.PixelData
 
-class DiffUtil(private val oldList:List<PixelData>,private val newList:List<PixelData>?): DiffUtil.Callback() {
+class DiffUtil(private val oldList:List<PixelData>, private val newList:List<PixelData>?): DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return oldList.size
     }

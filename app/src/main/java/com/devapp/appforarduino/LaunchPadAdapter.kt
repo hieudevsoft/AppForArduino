@@ -1,13 +1,13 @@
 package com.devapp.appforarduino
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.devapp.appforarduino.databinding.LayoutButtonGridBinding
+import com.devapp.appforarduino.data.model.PixelData
 
 class LaunchPadAdapter(val heightItem:Int): RecyclerView.Adapter<LaunchPadAdapter.ViewHolder>() {
     var listPixel = emptyList<PixelData>()
@@ -37,7 +37,7 @@ class LaunchPadAdapter(val heightItem:Int): RecyclerView.Adapter<LaunchPadAdapte
     val differ = AsyncListDiffer(this,utilCallBack)
 
     fun setData(list:List<PixelData>?){
-        val diffUtil = DiffUtil(listPixel,list)
+        val diffUtil = com.devapp.appforarduino.util.DiffUtil(listPixel, list)
         val diffUtilResult = DiffUtil.calculateDiff(diffUtil,true)
         if (list != null) {
             listPixel = list

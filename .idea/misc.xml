@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ANDROID_PROJECT/AppArduino/app/src/main/res/layout/activity_home.xml" value="0.22826086956521738" />
         <entry key="..\:/ANDROID_PROJECT/AppArduino/app/src/main/res/layout/activity_main.xml" value="0.23550724637681159" />
+        <entry key="..\:/ANDROID_PROJECT/AppArduino/app/src/main/res/layout/activity_started_screen.xml" value="0.33" />
         <entry key="..\:/ANDROID_PROJECT/AppArduino/app/src/main/res/layout/layout_button_grid.xml" value="0.23550724637681159" />
       </map>
     </option>
