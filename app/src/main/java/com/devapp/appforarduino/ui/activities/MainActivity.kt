@@ -9,7 +9,7 @@ import android.view.ViewTreeObserver
 import com.afollestad.dragselectrecyclerview.DragSelectReceiver
 import com.afollestad.dragselectrecyclerview.DragSelectTouchListener
 import com.afollestad.dragselectrecyclerview.Mode
-import com.devapp.appforarduino.LaunchPadAdapter
+import com.devapp.appforarduino.ui.adapter.LaunchPadAdapter
 import com.devapp.appforarduino.data.model.PixelData
 
 

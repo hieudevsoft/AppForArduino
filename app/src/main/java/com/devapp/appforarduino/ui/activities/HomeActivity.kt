@@ -42,6 +42,7 @@ class HomeActivity : AppCompatActivity() {
         setupInitUpdateTextAndColor()
         //homeViewModel.updateTextAndColorToFireBase(TextData("Chao"))
         subscriberObservers()
+
     }
 
     private fun subscriberObservers() {

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title=""
+        android:icon="@drawable/ic_history"
+        android:id="@+id/history2"/>
+    <item android:title=""
+        android:id="@+id/add3"/>
+    <item android:title=""
+        android:icon="@drawable/ic_info"
+        android:id="@+id/infor"/>
+</menu>

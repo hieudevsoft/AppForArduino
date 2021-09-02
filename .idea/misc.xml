@@ -7,10 +7,27 @@
         <entry key="..\:/ANDROID_PROJECT/AppArduino/app/src/main/res/layout/activity_main.xml" value="0.23550724637681159" />
         <entry key="..\:/ANDROID_PROJECT/AppArduino/app/src/main/res/layout/activity_started_screen.xml" value="0.33" />
         <entry key="..\:/ANDROID_PROJECT/AppArduino/app/src/main/res/layout/layout_button_grid.xml" value="0.23550724637681159" />
-        <entry key="..\:/Projects/AppForArduinp/app/src/main/res/layout/activity_home.xml" value="0.2957427536231884" />
+        <entry key="..\:/Projects/AppForArduinp/app/src/main/java/com/devapp/appforarduino/ui/fragments/fragment_add.xml" value="0.27898550724637683" />
+        <entry key="..\:/Projects/AppForArduinp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2046875" />
+        <entry key="..\:/Projects/AppForArduinp/app/src/main/res/drawables/drawable/dot_selected.xml" value="0.3609375" />
+        <entry key="..\:/Projects/AppForArduinp/app/src/main/res/drawables/drawable/dot_unselected.xml" value="0.3609375" />
+        <entry key="..\:/Projects/AppForArduinp/app/src/main/res/drawables/drawable/ic_baseline_history_24.xml" value="0.2046875" />
+        <entry key="..\:/Projects/AppForArduinp/app/src/main/res/drawables/icons_app/drawable/ic_add.xml" value="0.3609375" />
+        <entry key="..\:/Projects/AppForArduinp/app/src/main/res/drawables/icons_app/drawable/ic_history.xml" value="0.2046875" />
+        <entry key="..\:/Projects/AppForArduinp/app/src/main/res/drawables/icons_app/drawable/ic_history_selector.xml" value="1.7821428571428573" />
+        <entry key="..\:/Projects/AppForArduinp/app/src/main/res/drawables/icons_app/drawable/ic_info.xml" value="0.3553846153846154" />
+        <entry key="..\:/Projects/AppForArduinp/app/src/main/res/drawables/images_app/drawable/custom_btn_add.xml" value="0.3553846153846154" />
+        <entry key="..\:/Projects/AppForArduinp/app/src/main/res/layout/_page.xml" value="0.34479166666666666" />
+        <entry key="..\:/Projects/AppForArduinp/app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="..\:/Projects/AppForArduinp/app/src/main/res/layout/activity_main.xml" value="0.1671195652173913" />
         <entry key="..\:/Projects/AppForArduinp/app/src/main/res/layout/activity_started_screen.xml" value="0.2957427536231884" />
+        <entry key="..\:/Projects/AppForArduinp/app/src/main/res/layout/fragment_add.xml" value="0.18854166666666666" />
+        <entry key="..\:/Projects/AppForArduinp/app/src/main/res/layout/fragment_landing__page1.xml" value="0.25" />
         <entry key="..\:/Projects/AppForArduinp/app/src/main/res/layout/layout_button_grid.xml" value="0.2957427536231884" />
+        <entry key="..\:/Projects/AppForArduinp/app/src/main/res/menu/bottom_menu.xml" value="0.3182291666666667" />
+        <entry key="..\:/Projects/AppForArduinp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2046875" />
+        <entry key="..\:/Projects/AppForArduinp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2046875" />
+        <entry key="..\:/Projects/AppForArduinp/app/src/main/res/resource_app/drawable/ic_baseline_history_24.xml" value="0.2046875" />
       </map>
     </option>
   </component>

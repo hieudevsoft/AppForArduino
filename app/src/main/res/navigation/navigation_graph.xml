@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/navigation_graph">
-
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/landing_Page1">
+    <fragment
+        android:id="@+id/add3"
+        android:name="com.devapp.appforarduino.ui.fragments.Add"
+        android:label="fragment_add"
+        tools:layout="@layout/fragment_add" />
+    <fragment
+        android:id="@+id/infor"
+        android:name="com.devapp.appforarduino.ui.fragments.Infor"
+        android:label="fragment_infor"
+        tools:layout="@layout/fragment_infor" />
+    <fragment
+        android:id="@+id/history2"
+        android:name="com.devapp.appforarduino.ui.fragments.History"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/landing_Page1"
+        android:name="com.devapp.appforarduino.ui.fragments.LandingPage"
+        android:label="fragment_landing__page1"
+        tools:layout="@layout/fragment_landing__page1" />
 </navigation>

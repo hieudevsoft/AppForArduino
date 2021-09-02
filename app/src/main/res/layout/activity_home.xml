@@ -4,12 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.HomeActivity">
+    tools:context=".ui.activities.HomeActivity"
+    >
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navBottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        app:itemIconTint="@color/custom_nav_tint"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_menu"
+        app:elevation="0dp"/>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/navBottom"
+        app:navGraph="@navigation/navigation_graph" />
+
+    <com.google.android.material.button.MaterialButton
+        android:foreground="?attr/selectableItemBackground"
+        android:maxHeight="44dp"
+        android:maxWidth="88dp"
+        android:layout_width="88dp"
+        android:layout_height="44dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:elevation="20sp"
+        android:layout_marginBottom="10dp"
+        app:icon="@drawable/ic_add"
+        android:background="@drawable/custom_btn_add"
+        app:backgroundTint="@null"
+        app:iconGravity="top"
+        >
+
+    </com.google.android.material.button.MaterialButton>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

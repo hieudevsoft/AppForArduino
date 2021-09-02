@@ -9,4 +9,10 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="text_black_900">#1b1b1b</color>
+    <color name="background_slogan_1">#A68EF2</color>
+    <color name="background_slogan_2">#22292F</color>
+    <color name="background_slogan_3">#FFFFFF</color>
+    <color name="dot_selected"> #797676</color>
+    <color name="dot_unselected">#C4C4C4</color>
+
 </resources>

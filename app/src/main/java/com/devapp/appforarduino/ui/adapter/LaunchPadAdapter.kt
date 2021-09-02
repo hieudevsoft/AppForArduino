@@ -1,4 +1,4 @@
-package com.devapp.appforarduino
+package com.devapp.appforarduino.ui.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import com.devapp.appforarduino.data.model.PixelData
 
 class LaunchPadAdapter(val heightItem:Int): RecyclerView.Adapter<LaunchPadAdapter.ViewHolder>() {
     var listPixel = emptyList<PixelData>()
-    private val map = hashMapOf<Int,ViewHolder>()
+    private val map = hashMapOf<Int, ViewHolder>()
     inner class ViewHolder(val binding:LayoutButtonGridBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(pixelData: PixelData){
                 binding.root.setCardBackgroundColor(Color.parseColor(pixelData.color))
@@ -19,7 +19,7 @@ class LaunchPadAdapter(val heightItem:Int): RecyclerView.Adapter<LaunchPadAdapte
                 binding.root.requestLayout()
         }
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LaunchPadAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutButtonGridBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
@@ -44,7 +44,7 @@ class LaunchPadAdapter(val heightItem:Int): RecyclerView.Adapter<LaunchPadAdapte
         }
         diffUtilResult.dispatchUpdatesTo(this)
     }
-    override fun onBindViewHolder(holder: LaunchPadAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         map[position] = holder
         holder.bind(listPixel[position])
         holder.binding.root.setOnLongClickListener {
@@ -60,7 +60,7 @@ class LaunchPadAdapter(val heightItem:Int): RecyclerView.Adapter<LaunchPadAdapte
         }
     }
 
-    fun setColorFotPixel(holder:ViewHolder,color:String){
+    fun setColorFotPixel(holder: ViewHolder, color:String){
         holder.binding.root.setCardBackgroundColor(Color.parseColor(color))
     }
 
