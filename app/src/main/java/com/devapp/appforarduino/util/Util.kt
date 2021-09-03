@@ -1,5 +1,6 @@
 package com.devapp.appforarduino.util
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.net.ConnectivityManager
@@ -9,11 +10,14 @@ import android.text.Html
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.view.menu.MenuItemImpl
 import com.devapp.appforarduino.R
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.lang.Exception
 
 object Util {
 
+    const val SEARCH_DEFAULT_DELAY = 500L
     const val EVENT_STATE_NOT_INTERNET_CONNECTTED = "No Internet Connected"
     const val TABLE_TEXT_AND_COLOR ="table_text_and_color"
     const val NAME_DB ="db"
@@ -62,6 +66,18 @@ object Util {
         {
             val networkInfor = connectManager.activeNetworkInfo
             return networkInfor!=null && networkInfor.isConnected
+        }
+    }
+
+    @SuppressLint("RestrictedApi")
+    fun BottomNavigationView.deselectAllItems() {
+        val menu = this.menu
+        for(i in 0 until menu.size()) {
+            (menu.getItem(i) as? MenuItemImpl)?.let {
+                it.isExclusiveCheckable = false
+                it.isChecked = false
+                it.isExclusiveCheckable = true
+            }
         }
     }
 

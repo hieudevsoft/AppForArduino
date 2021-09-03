@@ -1,53 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.HomeActivity"
-    >
+    tools:context=".ui.activities.HomeActivity">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navBottom"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:itemIconTint="@color/custom_nav_tint"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:labelVisibilityMode="unlabeled"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_menu"
-        app:elevation="0dp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/navBottom"
-        app:navGraph="@navigation/navigation_graph" />
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/navigation_graph" />
 
-    <com.google.android.material.button.MaterialButton
-        android:foreground="?attr/selectableItemBackground"
-        android:maxHeight="44dp"
-        android:maxWidth="88dp"
-        android:layout_width="88dp"
-        android:layout_height="44dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:elevation="20sp"
-        android:layout_marginBottom="10dp"
-        app:icon="@drawable/ic_add"
-        android:background="@drawable/custom_btn_add"
-        app:backgroundTint="@null"
-        app:iconGravity="top"
-        >
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navBottom"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="bottom"
+            app:elevation="10dp"
+            android:backgroundTint="@color/white"
+            app:itemIconTint="@color/custom_nav_tint"
+            app:labelVisibilityMode="unlabeled"
+            app:menu="@menu/bottom_menu" />
+    </LinearLayout>
 
-    </com.google.android.material.button.MaterialButton>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:scaleType="fitCenter"
+        android:elevation="20dp"
+        android:layout_marginBottom="28dp"
+        app:fabSize="normal"
+        app:rippleColor="@color/cardview_dark_background"
+        app:pressedTranslationZ="0dp"
+        app:backgroundTintMode="src_atop"
+        android:foreground="@drawable/custom_btn_floating"
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <include layout="@layout/layout_bottom_dialog" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

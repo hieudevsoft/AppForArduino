@@ -1,6 +1,7 @@
 package com.devapp.appforarduino.ui.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.devapp.appforarduino.data.model.TextData
 import com.devapp.appforarduino.domain.usecases.*
@@ -22,7 +23,7 @@ class HomeViewModel(
     private val saveTextAndColorUseCase: SaveTextAndColorUseCase,
     private val deleteTextAndColorUseCase: DeleteTextAndColorUseCase,
     private val deleteAllTextAndColorUseCase: DeleteAllTextAndColorUseCase,
-    getAllTextAndColorUseCase: GetAllTextAndColorUseCase,
+    private val getAllTextAndColorUseCase: GetAllTextAndColorUseCase,
     private val getSearchedTextAndColorUseCase: GetSearchedTextAndColorUseCase,
 ) : AndroidViewModel(app) {
 
@@ -32,28 +33,18 @@ class HomeViewModel(
     private val _saveTextAndColorState = MutableLiveData<Boolean>()
     val saveTextAndColorState: LiveData<Boolean> = _saveTextAndColorState
 
-    private val _deleteTextAndColorState = MutableLiveData<Boolean>()
-    val deleteTextAndColorState: LiveData<Boolean> = _deleteTextAndColorState
+    val deleteTextAndColorState = MutableLiveData<Boolean>()
+
 
     private val _deleteAllTextAndColorState = MutableLiveData<Boolean>()
-    val deleteAllTextAndColorState: LiveData<Boolean> = _deleteTextAndColorState
+    fun setNullForDeleteAllTextAndColorState() = _deleteAllTextAndColorState.postValue(null)
+    val deleteAllTextAndColorState: LiveData<Boolean> = _deleteAllTextAndColorState
 
     val getAllTextAndColorData = getAllTextAndColorUseCase.execute()
 
-    private val currentQuery = MutableStateFlow<String>(DEFAULT_SEARCH)
+    val currentQueryText = MutableLiveData<String>()
     @ExperimentalCoroutinesApi
-    val getALlTextAndColorData: Flow<List<TextData>> = currentQuery.flatMapLatest {
-            if(it== DEFAULT_SEARCH) getAllTextAndColorData
-            else getSearchedTextAndColorUseCase.execute(it)
-    }
-    fun getSearchedTextAndColor(query:String){
-        viewModelScope.launch {
-            try {
-                currentQuery.value = query
-            }catch (e:Exception){
-            }
-        }
-    }
+    fun getSearchedTextAndColor(query:String) = getSearchedTextAndColorUseCase.execute(query)
 
     fun updateTextAndColorToFireBase(textData: TextData) {
         safeUpdateTextAndColorToFireBase(textData)
@@ -75,9 +66,9 @@ class HomeViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 async { deleteAllTextAndColorUseCase.execute() }.await()
-                _deleteAllTextAndColorState.value = true
+                _deleteAllTextAndColorState.postValue(true)
             } catch (e: Exception) {
-                _deleteAllTextAndColorState.value = false
+                _deleteAllTextAndColorState.postValue(false)
             }
         }
     }
@@ -86,9 +77,9 @@ class HomeViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = async { deleteTextAndColorUseCase.execute(textData) }.await()
-                _deleteTextAndColorState.value = result >= 1
+                deleteTextAndColorState.postValue(result >= 1)
             } catch (e: Exception) {
-                _deleteTextAndColorState.value = false
+                deleteTextAndColorState.postValue(false)
             }
         }
     }
@@ -98,9 +89,9 @@ class HomeViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = async { saveTextAndColorUseCase.execute(textData) }.await()
-                _saveTextAndColorState.value = result >= 0
+                _saveTextAndColorState.postValue(result >= 0)
             } catch (e: Exception) {
-                _saveTextAndColorState.value = false
+                _saveTextAndColorState.postValue(false)
             }
         }
     }

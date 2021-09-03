@@ -8,11 +8,17 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
     <color name="text_black_900">#1b1b1b</color>
     <color name="background_slogan_1">#A68EF2</color>
     <color name="background_slogan_2">#22292F</color>
     <color name="background_slogan_3">#FFFFFF</color>
     <color name="dot_selected"> #797676</color>
     <color name="dot_unselected">#C4C4C4</color>
+    <color name="background_bottom_dialog">#ddd</color>
+    <color name="light_blue">#3672ae</color>
+    <color name="gray">#F4F4F4</color>
 
 </resources>

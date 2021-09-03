@@ -4,4 +4,8 @@
     <string name="lottie_animation">https://assets9.lottiefiles.com/packages/lf20_f755rjxp.json</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_option">Chữ</string>
+    <string name="text_image">Hình ảnh</string>
+    <string name="text_launch_pad">Vẽ</string>
+    <string name="text_cancel">Hủy</string>
 </resources>

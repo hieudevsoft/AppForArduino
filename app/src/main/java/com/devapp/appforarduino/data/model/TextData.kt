@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.devapp.appforarduino.util.Util
 
 @Entity(tableName = Util.TABLE_TEXT_AND_COLOR)
-data class TextData(var text:String="Hello I'm UwU",var color:String="#ffffff") {
+data class TextData(var text:String="Hello I'm UwU",var color:String="#1b1b1b") {
     @PrimaryKey(autoGenerate = true)
     var id:Int? = null
 
