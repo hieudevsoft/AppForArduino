@@ -40,7 +40,6 @@ class HistoryTextFragment : Fragment(com.devapp.appforarduino.R.layout.fragment_
         model = (activity as HomeActivity).homeViewModel
         return binding.root!!
     }
-
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,25 +54,7 @@ class HistoryTextFragment : Fragment(com.devapp.appforarduino.R.layout.fragment_
                 } else showOrHideNoData(true)
 
             }
-            model.updateState.collect {
-                when (it) {
-                    is HomeViewModel.UpdateState.Loading -> {
 
-                    }
-                    is HomeViewModel.UpdateState.Error -> {
-                        withContext(Dispatchers.Main) {
-                            Snackbar.make(binding.root, it.message, Snackbar.LENGTH_LONG).show()
-                        }
-                    }
-                    is HomeViewModel.UpdateState.Success -> {
-                        Snackbar.make(binding.root, "Cập nhật chữ thành công", Snackbar.LENGTH_LONG)
-                            .show()
-                    }
-                    else -> {
-
-                    }
-                }
-            }
 
         }
         model.currentQueryText.observe(viewLifecycleOwner, { query ->
@@ -201,6 +182,27 @@ class HistoryTextFragment : Fragment(com.devapp.appforarduino.R.layout.fragment_
                     "OK", R.drawable.ic_delete_dialog
                 ) { dialogInterface, which ->
                     model.updateTextAndColorToFireBase(it)
+                    lifecycleScope.launchWhenStarted {
+                        model.updateState.collect {
+                            when (it) {
+                                is HomeViewModel.UpdateState.Loading -> {
+
+                                }
+                                is HomeViewModel.UpdateState.Error -> {
+                                    withContext(Dispatchers.Main) {
+                                        Snackbar.make(binding.root, it.message, Snackbar.LENGTH_LONG).show()
+                                    }
+                                }
+                                is HomeViewModel.UpdateState.Success -> {
+                                    Snackbar.make(binding.root, "Cập nhật chữ thành công", Snackbar.LENGTH_LONG)
+                                        .show()
+                                }
+                                else -> {
+
+                                }
+                            }
+                        }
+                    }
                     dialogInterface.dismiss()
                 }
                 .setNegativeButton(

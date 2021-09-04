@@ -81,4 +81,6 @@ object Util {
         }
     }
 
+    fun validDataText(value:String) = value.trim().replace("\n","")
+
 }

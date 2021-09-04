@@ -16,6 +16,7 @@ import com.devapp.appforarduino.databinding.FragmentTextBinding
 import com.devapp.appforarduino.ui.activities.HomeActivity
 import com.devapp.appforarduino.ui.viewmodels.HomeViewModel
 import com.devapp.appforarduino.util.ColorSheetSingleTon
+import com.devapp.appforarduino.util.Util
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -80,13 +81,39 @@ class TextFragment : Fragment(R.layout.fragment_text) {
         binding.btnPush.setOnClickListener {
             val intColor = binding.edtText.currentTextColor
             val textData = TextData(
-                binding.edtText.text.toString(),
+                Util.validDataText(binding.edtText.text.toString()),
                 String.format(
                     "#%06X", (0xFFFFFF and intColor)
                 )
             )
             model.updateTextAndColorToFireBase(textData)
-            model.saveTextAndColor(textData)
+            lifecycleScope.launchWhenStarted {
+                model.updateState.collect {
+                    when(it){
+                        is HomeViewModel.UpdateState.Loading->{
+                            withContext(Dispatchers.Main){
+                                binding.loadingDots.visibility = View.VISIBLE
+                            }
+
+                        }
+                        is HomeViewModel.UpdateState.Error->{
+                            withContext(Dispatchers.Main){
+                                binding.loadingDots.visibility = View.GONE
+                                Snackbar.make(binding.root,it.message,Snackbar.LENGTH_LONG).show()
+                            }
+                        }
+                        is HomeViewModel.UpdateState.Success->{
+                            binding.loadingDots.visibility = View.GONE
+                            Snackbar.make(binding.root,"Cập nhật chữ thành công",Snackbar.LENGTH_LONG).show()
+                            model.setEmptyForUpdateState()
+                            model.saveTextAndColor(textData)
+                        }
+                        else->{
+
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -97,32 +124,7 @@ class TextFragment : Fragment(R.layout.fragment_text) {
                 it[1]?.let { it1 -> binding.edtText.setTextColor(it1.toInt()) }
             }
         })
-        lifecycleScope.launchWhenStarted {
-            model.updateState.collect {
-                when(it){
-                    is HomeViewModel.UpdateState.Loading->{
-                        withContext(Dispatchers.Main){
-                            binding.loadingDots.visibility = View.VISIBLE
-                        }
 
-                    }
-                    is HomeViewModel.UpdateState.Error->{
-                        withContext(Dispatchers.Main){
-                            binding.loadingDots.visibility = View.GONE
-                            Snackbar.make(binding.root,it.message,Snackbar.LENGTH_LONG).show()
-                        }
-                    }
-                    is HomeViewModel.UpdateState.Success->{
-                        binding.loadingDots.visibility = View.GONE
-                        Snackbar.make(binding.root,"Cập nhật chữ thành công",Snackbar.LENGTH_LONG).show()
-                        model.setEmptyForUpdateState()
-                    }
-                    else->{
-
-                    }
-                }
-            }
-        }
     }
 
     private fun openBottomSheetColor() {
