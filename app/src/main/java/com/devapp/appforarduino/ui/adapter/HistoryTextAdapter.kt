@@ -52,9 +52,6 @@ class HistoryTextAdapter : RecyclerView.Adapter<HistoryTextAdapter.ViewHolder>()
         holder.binding.root.setOnClickListener {
             onLickItemListener?.let { it(item) }
         }
-        if(item.color.lowercase(Locale.getDefault()) =="#ffffff"||item.color.lowercase(Locale.getDefault()) =="#ffffffff"){
-            (holder.itemView.rootView as CardView).setBackgroundColor(Color.parseColor("#1b1b1b"))
-        }
     }
 
     private var onLickItemListener:((TextData)->Unit)?=null

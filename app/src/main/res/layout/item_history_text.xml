@@ -15,7 +15,7 @@
             app:cardCornerRadius="10dp"
             android:clickable="true"
             android:focusable="true"
-            app:cardBackgroundColor="@color/white"
+            app:cardBackgroundColor="@color/background_slogan_2"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:layout_height="wrap_content">
 

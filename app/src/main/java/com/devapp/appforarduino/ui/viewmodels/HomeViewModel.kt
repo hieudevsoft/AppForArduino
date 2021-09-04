@@ -27,7 +27,14 @@ class HomeViewModel(
     private val getSearchedTextAndColorUseCase: GetSearchedTextAndColorUseCase,
 ) : AndroidViewModel(app) {
 
+    private val _stateTextEditText = MutableLiveData<HashMap<Int,String>>()
+    val stateTextEditText = _stateTextEditText
+    fun setStateText(haspMap:HashMap<Int,String>) = _stateTextEditText.postValue(haspMap)
+
     private val _updateState = MutableStateFlow<UpdateState>(UpdateState.Empty)
+    fun setEmptyForUpdateState() {
+        _updateState.value=UpdateState.Empty
+    }
     val updateState: StateFlow<UpdateState> = _updateState
 
     private val _saveTextAndColorState = MutableLiveData<Boolean>()

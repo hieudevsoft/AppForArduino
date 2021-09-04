@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavGraphNavigator
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.devapp.appforarduino.R
@@ -26,6 +27,7 @@ import com.devapp.appforarduino.ui.viewmodels.HomeViewModelFactory
 import com.devapp.appforarduino.util.Util.deselectAllItems
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.FirebaseDatabase
+
 
 
 class HomeActivity : AppCompatActivity() {
@@ -51,6 +53,10 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var tvOptionLaunchPad: TextView
     private lateinit var tvCancel: TextView
     var mBottomSheetBehavior: BottomSheetBehavior<View>? = null
+
+    companion object{
+        var optionFeature = -1
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -58,9 +64,7 @@ class HomeActivity : AppCompatActivity() {
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         setupInitUpdateTextAndColor()
-        //homeViewModel.updateTextAndColorToFireBase(TextData("Chao"))
         mappingElement()
-        subscriberObservers()
         setupNavBottom()
         intStateClickEvent()
         initGestureDetector()
@@ -71,10 +75,6 @@ class HomeActivity : AppCompatActivity() {
         tvOptionImage = findViewById(R.id.tvOptionImage)
         tvOptionLaunchPad = findViewById(R.id.tvOptionDrawLed)
         tvCancel = findViewById(R.id.tv3)
-    }
-
-    private fun subscriberObservers() {
-
     }
 
     private fun initGestureDetector() {
@@ -123,7 +123,10 @@ class HomeActivity : AppCompatActivity() {
         mBottomSheetBehavior!!.peekHeight = 0
         binding.navBottom.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.menu_history -> openBottomDialogHistory()
+                R.id.menu_history -> {
+                    optionFeature = 1
+                    openBottomDialogHistory()
+                }
                 R.id.menu_infor -> openFragmentInfor()
                 else -> false
             }
@@ -162,7 +165,9 @@ class HomeActivity : AppCompatActivity() {
 
     private fun intStateClickEvent() {
         tvOptionText.setOnClickListener {
-            openFragmentHistoryText()
+            if(optionFeature==1)
+            openFragmentHistoryText() else
+                openFragmentText()
             mBottomSheetBehavior!!.state = BottomSheetBehavior.STATE_COLLAPSED
         }
         tvOptionImage.setOnClickListener {
@@ -175,8 +180,13 @@ class HomeActivity : AppCompatActivity() {
             mBottomSheetBehavior!!.state = BottomSheetBehavior.STATE_COLLAPSED
         }
         binding.fab.setOnClickListener {
+            optionFeature = 0
             openBottomDialogHistory()
         }
+    }
+
+    private fun openFragmentText() {
+        navHostFragment.findNavController().navigate(R.id.action_global_textFragment)
     }
 
     private fun openFragmentHistoryText() {

@@ -21,6 +21,7 @@
             app:navGraph="@navigation/navigation_graph" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:background="@color/white"
             android:id="@+id/navBottom"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"

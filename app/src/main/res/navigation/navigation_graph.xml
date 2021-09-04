@@ -6,12 +6,12 @@
     app:startDestination="@id/fragmentLandingPage">
     <fragment
         android:id="@+id/fragmentLandingPage"
-        android:name="com.devapp.appforarduino.ui.fragments.LandingPage"
+        android:name="com.devapp.appforarduino.ui.fragments.LandingPageFragment"
         android:label="Landing"
         tools:layout="@layout/fagment_landing_page" />
     <fragment
         android:id="@+id/historyText"
-        android:name="com.devapp.appforarduino.ui.fragments.HistoryText"
+        android:name="com.devapp.appforarduino.ui.fragments.HistoryTextFragment"
         android:label="HistoryText" />
     <action android:id="@+id/action_global_historyText"
         app:enterAnim="@anim/anim_slide_in_left"
@@ -19,4 +19,14 @@
         app:popEnterAnim="@anim/anim_slide_in_right"
         app:popExitAnim="@anim/anim_slide_out_left"
         app:destination="@id/historyText"/>
+    <fragment
+        android:id="@+id/textFragment"
+        android:name="com.devapp.appforarduino.ui.fragments.TextFragment"
+        android:label="TextFragment" />
+    <action android:id="@+id/action_global_textFragment"
+        app:enterAnim="@anim/anim_slide_in_left"
+        app:exitAnim="@anim/anim_slide_out_right"
+        app:popEnterAnim="@anim/anim_slide_in_right"
+        app:popExitAnim="@anim/anim_slide_out_left"
+        app:destination="@id/textFragment"/>
 </navigation>

@@ -11,7 +11,7 @@ import com.devapp.appforarduino.R
 import com.devapp.appforarduino.ui.adapter.ViewPagerAdapter
 import com.devapp.appforarduino.util.Util
 
-class LandingPage : Fragment() {
+class LandingPageFragment : Fragment() {
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     private lateinit var viewPager2: ViewPager2
     private lateinit var layoutPagePosition:LinearLayout

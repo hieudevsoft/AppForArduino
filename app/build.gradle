@@ -94,4 +94,10 @@ dependencies {
     // Material Dialog Library
     implementation 'dev.shreyaspatil.MaterialDialog:MaterialDialog:2.2.2'
 
+    //Color Sheet Bottom Dialog
+    implementation "dev.sasikanth:colorsheet:1.0.1"
+
+    //loading dot
+    implementation 'com.eyalbira.loadingdots:loading-dots:1.0.2'
+
 }

@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.devapp.appforarduino.R
-import com.devapp.appforarduino.data.model.TextData
 import com.devapp.appforarduino.databinding.FragmentHistoryTextBinding
 import com.devapp.appforarduino.ui.activities.HomeActivity
 import com.devapp.appforarduino.ui.adapter.HistoryTextAdapter
@@ -21,18 +20,17 @@ import com.devapp.appforarduino.util.Util
 import com.google.android.material.snackbar.Snackbar
 import dev.shreyaspatil.MaterialDialog.MaterialDialog
 import dev.shreyaspatil.MaterialDialog.model.TextAlignment
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 
 
-class HistoryText : Fragment(com.devapp.appforarduino.R.layout.fragment_history_text) {
+class HistoryTextFragment : Fragment(com.devapp.appforarduino.R.layout.fragment_history_text) {
     private var _binding: FragmentHistoryTextBinding? = null
     private lateinit var historyTextAdapter: HistoryTextAdapter
     private val binding get() = _binding!!
     private lateinit var model: HomeViewModel
     private lateinit var dialogBuilder: MaterialDialog
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,13 +46,35 @@ class HistoryText : Fragment(com.devapp.appforarduino.R.layout.fragment_history_
         super.onViewCreated(view, savedInstanceState)
         var job: Job? = null
         lifecycleScope.launchWhenStarted {
+
             model.getAllTextAndColorData.collect {
-                if(it.isNotEmpty()){
+                Log.d("TAG", "onViewCreated: dataAll $it")
+                if (it.isNotEmpty()) {
                     showOrHideNoData(false)
                     historyTextAdapter.submitList(it)
-                }else showOrHideNoData(true)
+                } else showOrHideNoData(true)
 
             }
+            model.updateState.collect {
+                when (it) {
+                    is HomeViewModel.UpdateState.Loading -> {
+
+                    }
+                    is HomeViewModel.UpdateState.Error -> {
+                        withContext(Dispatchers.Main) {
+                            Snackbar.make(binding.root, it.message, Snackbar.LENGTH_LONG).show()
+                        }
+                    }
+                    is HomeViewModel.UpdateState.Success -> {
+                        Snackbar.make(binding.root, "Cập nhật chữ thành công", Snackbar.LENGTH_LONG)
+                            .show()
+                    }
+                    else -> {
+
+                    }
+                }
+            }
+
         }
         model.currentQueryText.observe(viewLifecycleOwner, { query ->
             lifecycleScope.launchWhenStarted {
@@ -67,6 +87,7 @@ class HistoryText : Fragment(com.devapp.appforarduino.R.layout.fragment_history_
 
                 }
             }
+        })
             model.deleteAllTextAndColorState.observe(viewLifecycleOwner, {
                 Log.d("TAG", "onViewCreated: deleteall $it")
                 it?.let {
@@ -86,7 +107,6 @@ class HistoryText : Fragment(com.devapp.appforarduino.R.layout.fragment_history_
                     }
                 }
             })
-        })
 
         binding.btnTest.setOnClickListener {
            openDeleteAllDataDialog()
@@ -105,17 +125,17 @@ class HistoryText : Fragment(com.devapp.appforarduino.R.layout.fragment_history_
 
     private fun openDeleteAllDataDialog() {
         dialogBuilder = MaterialDialog.Builder(requireActivity())
-            .setTitle("Xóa ?",TextAlignment.CENTER)
-            .setMessage("Bạn chắc chắn xóa toàn bộ chữ ?",TextAlignment.CENTER)
+            .setTitle("Xóa ?", TextAlignment.CENTER)
+            .setMessage("Bạn chắc chắn xóa toàn bộ chữ ?", TextAlignment.CENTER)
             .setCancelable(false)
             .setPositiveButton(
-                "OK", com.devapp.appforarduino.R.drawable.ic_delete_dialog
+                "OK", R.drawable.ic_delete_dialog
             ) { dialogInterface, which ->
                 model.deleteAllTextAndColor()
                 dialogInterface.dismiss()
             }
             .setNegativeButton(
-                "Hủy", com.devapp.appforarduino.R.drawable.ic_close
+                "Hủy", R.drawable.ic_close
             ) { dialogInterface, which -> dialogInterface.dismiss() }
             .setAnimation(R.raw.delete)
             .build()
@@ -172,6 +192,24 @@ class HistoryText : Fragment(com.devapp.appforarduino.R.layout.fragment_history_
             itemAnimator = null
         }
         ItemTouchHelper(itemTouchHelper).attachToRecyclerView(binding.recyclerView)
+        historyTextAdapter.setOnItemClickListener {
+            dialogBuilder = MaterialDialog.Builder(requireActivity())
+                .setTitle("Hiển thị nội dung ?", TextAlignment.CENTER)
+                .setMessage("Bạn chắc chắn hiển thị chữ này chứ?", TextAlignment.CENTER)
+                .setCancelable(false)
+                .setPositiveButton(
+                    "OK", R.drawable.ic_delete_dialog
+                ) { dialogInterface, which ->
+                    model.updateTextAndColorToFireBase(it)
+                    dialogInterface.dismiss()
+                }
+                .setNegativeButton(
+                    "Hủy", R.drawable.ic_close
+                ) { dialogInterface, which -> dialogInterface.dismiss() }
+                .setAnimation(R.raw.update)
+                .build()
+            dialogBuilder.show()
+        }
     }
 
     private fun showOrHideNoData(isShow:Boolean){
@@ -184,6 +222,7 @@ class HistoryText : Fragment(com.devapp.appforarduino.R.layout.fragment_history_
         model.deleteTextAndColorState.value = null
         model.currentQueryText.value = ""
         model.setNullForDeleteAllTextAndColorState()
+        model.setEmptyForUpdateState()
         super.onDestroyView()
     }
 
