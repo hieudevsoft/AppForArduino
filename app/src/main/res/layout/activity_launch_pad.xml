@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/card_color_text"
+    android:layout_height="match_parent"
+    android:padding="12dp"
+    tools:context=".ui.activities.LaunchPadActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:padding="3dp"
+        tools:listitem="@layout/layout_button_grid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/lyControl"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/lyControl"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btnChooseColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardCornerRadius="12dp"
+        app:cardUseCompatPadding="true">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:src="@drawable/ic_color" />
+    </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btnPush"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="12dp"
+            app:cardUseCompatPadding="true">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:src="@drawable/ic_save" />
+        </androidx.cardview.widget.CardView>
+        <com.eyalbira.loadingdots.LoadingDots
+            android:layout_marginStart="8dp"
+            android:visibility="gone"
+            android:id="@+id/loadingDots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:LoadingDots_auto_play="true"
+            app:LoadingDots_jump_duration="100"
+            app:LoadingDots_dots_count="3"
+            app:LoadingDots_dots_color="@color/colorAccent"
+            app:LoadingDots_dots_size="8dp"
+            app:LoadingDots_dots_space="6dp"
+            app:LoadingDots_jump_height="12dp"
+            app:LoadingDots_loop_duration="1200"
+            app:LoadingDots_loop_start_delay="200" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.devapp.appforarduino.domain.app_repository
 
+import com.devapp.appforarduino.data.model.PixelData
 import com.devapp.appforarduino.data.model.TextData
 import com.devapp.appforarduino.domain.firebase_data_source.FireBaseRepository
 import com.devapp.appforarduino.domain.local_data_source.LocalDataRepository
@@ -11,6 +12,14 @@ class AppRepositoryImpl(
 ):AppRepository {
     override suspend fun updateTextAndColorToFirebase(textData: TextData) {
         fireBaseRepository.updateTextAndColorToFirebase(textData)
+    }
+
+    override suspend fun updateOption(option: Int) {
+        fireBaseRepository.updateOptions(option)
+    }
+
+    override suspend fun updatePixelData(array: List<PixelData>) {
+        fireBaseRepository.updatePixelData(array)
     }
 
     override suspend fun saveTextAndColor(textData: TextData): Long {

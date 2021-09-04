@@ -1,5 +1,6 @@
 package com.devapp.appforarduino.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
@@ -40,6 +41,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var localDataRepository: LocalDataRepository
     private lateinit var appRepository: AppRepository
     private lateinit var updateTextAndColorToFirebaseUseCase: UpdateTextAndColorToFirebaseUseCase
+    private lateinit var updateOptionUseCase: UpdateOptionUseCase
     private lateinit var saveTextAndColorUseCase: SaveTextAndColorUseCase
     private lateinit var deleteTextAndColorUseCase: DeleteTextAndColorUseCase
     private lateinit var deleteAllTextAndColorUseCase: DeleteAllTextAndColorUseCase
@@ -98,6 +100,7 @@ class HomeActivity : AppCompatActivity() {
         appRepository = AppRepositoryImpl(firebaseRepository, localDataRepository)
         updateTextAndColorToFirebaseUseCase = UpdateTextAndColorToFirebaseUseCase(appRepository)
         saveTextAndColorUseCase = SaveTextAndColorUseCase(appRepository)
+        updateOptionUseCase = UpdateOptionUseCase(appRepository)
         deleteTextAndColorUseCase = DeleteTextAndColorUseCase(appRepository)
         deleteAllTextAndColorUseCase = DeleteAllTextAndColorUseCase(appRepository)
         searchedTextAndColorUseCase = GetSearchedTextAndColorUseCase(appRepository)
@@ -111,7 +114,8 @@ class HomeActivity : AppCompatActivity() {
                 deleteTextAndColorUseCase,
                 deleteAllTextAndColorUseCase,
                 getAllTextAndColorUseCase,
-                searchedTextAndColorUseCase
+                searchedTextAndColorUseCase,
+                updateOptionUseCase
             )
         ).get(HomeViewModel::class.java)
     }
@@ -174,6 +178,9 @@ class HomeActivity : AppCompatActivity() {
             mBottomSheetBehavior!!.state = BottomSheetBehavior.STATE_COLLAPSED
         }
         tvOptionLaunchPad.setOnClickListener {
+            if(optionFeature==1)
+                openFragmentHistoryLaunchPad()
+            else openActivityLaunchPad()
             mBottomSheetBehavior!!.state = BottomSheetBehavior.STATE_COLLAPSED
         }
         tvCancel.setOnClickListener {
@@ -183,6 +190,17 @@ class HomeActivity : AppCompatActivity() {
             optionFeature = 0
             openBottomDialogHistory()
         }
+    }
+
+    private fun openActivityLaunchPad() {
+        Intent(this,LaunchPadActivity::class.java).also {
+            startActivity(it)
+            overridePendingTransition(R.anim.anim_slide_in_right,R.anim.anim_slide_out_left)
+        }
+    }
+
+    private fun openFragmentHistoryLaunchPad() {
+
     }
 
     private fun openFragmentText() {

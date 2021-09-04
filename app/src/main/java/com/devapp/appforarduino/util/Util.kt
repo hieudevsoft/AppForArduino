@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.view.menu.MenuItemImpl
 import com.devapp.appforarduino.R
+import com.devapp.appforarduino.data.model.PixelData
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.lang.Exception
 
@@ -20,6 +21,7 @@ object Util {
     const val SEARCH_DEFAULT_DELAY = 500L
     const val EVENT_STATE_NOT_INTERNET_CONNECTTED = "No Internet Connected"
     const val TABLE_TEXT_AND_COLOR ="table_text_and_color"
+    const val TABLE_PIXEL_AND_COLOR ="table_pixel_and_color"
     const val NAME_DB ="db"
     const val SLOGAN_PAGE_1 = "Linh hoạt và tiện dụng \n" +
             "trong trang trí và quảng cáo"
@@ -83,4 +85,6 @@ object Util {
 
     fun validDataText(value:String) = value.trim().replace("\n","")
 
+    fun mapRGBToList(map: Map<String,Int>) = map.map { (_,value)->value }
+    fun covertListColorToRgbArray(list:List<PixelData>) = list.map { mapRGBToList(convertHexToRgb(it.color!!)) }.flatMap { it.toList() }
 }

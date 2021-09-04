@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activities.MainActivity"
+            android:name=".ui.activities.LaunchPadActivity"
             android:exported="true"
             android:screenOrientation="portrait">
 

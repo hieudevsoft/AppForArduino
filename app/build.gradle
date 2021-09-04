@@ -100,4 +100,7 @@ dependencies {
     //loading dot
     implementation 'com.eyalbira.loadingdots:loading-dots:1.0.2'
 
+    //Gson
+    implementation 'com.google.code.gson:gson:2.8.8'
+
 }

@@ -23,18 +23,6 @@ class LaunchPadAdapter(val heightItem:Int): RecyclerView.Adapter<LaunchPadAdapte
         return ViewHolder(LayoutButtonGridBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
-    val utilCallBack  = object:DiffUtil.ItemCallback<PixelData>(){
-        override fun areItemsTheSame(oldItem: PixelData, newItem: PixelData): Boolean {
-            return oldItem.color == oldItem.color && oldItem.isBrush == newItem.isBrush
-        }
-
-        override fun areContentsTheSame(oldItem: PixelData, newItem: PixelData): Boolean {
-            return oldItem.color == oldItem.color && oldItem.isBrush == newItem.isBrush
-        }
-
-    }
-
-    val differ = AsyncListDiffer(this,utilCallBack)
 
     fun setData(list:List<PixelData>?){
         val diffUtil = com.devapp.appforarduino.util.DiffUtil(listPixel, list)
@@ -48,19 +36,12 @@ class LaunchPadAdapter(val heightItem:Int): RecyclerView.Adapter<LaunchPadAdapte
         map[position] = holder
         holder.bind(listPixel[position])
         holder.binding.root.setOnLongClickListener {
-
-//            if(listPixel[position].isBrush==false){
-//                holder.binding.root.setCardBackgroundColor(Color.parseColor("#ff77a9"))
-//            }
-//            else {
-//                holder.binding.root.setCardBackgroundColor(Color.parseColor("#ffffff"))
-//            }
             onItemLongClickListener?.let { it(position) }
             true
         }
     }
 
-    fun setColorFotPixel(holder: ViewHolder, color:String){
+    fun setColorForPixel(holder: ViewHolder, color:String){
         holder.binding.root.setCardBackgroundColor(Color.parseColor(color))
     }
 

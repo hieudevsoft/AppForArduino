@@ -25,6 +25,7 @@ class HomeViewModel(
     private val deleteAllTextAndColorUseCase: DeleteAllTextAndColorUseCase,
     private val getAllTextAndColorUseCase: GetAllTextAndColorUseCase,
     private val getSearchedTextAndColorUseCase: GetSearchedTextAndColorUseCase,
+    private val updateOptionUseCase: UpdateOptionUseCase
 ) : AndroidViewModel(app) {
 
     private val _stateTextEditText = MutableLiveData<HashMap<Int,String>>()
@@ -37,15 +38,19 @@ class HomeViewModel(
     }
     val updateState: StateFlow<UpdateState> = _updateState
 
-    private val _saveTextAndColorState = MutableLiveData<Boolean>()
-    val saveTextAndColorState: LiveData<Boolean> = _saveTextAndColorState
+    private val _updateOptionsState = MutableStateFlow<UpdateState>(UpdateState.Empty)
+    fun setEmptyForUpdateOptionState() {
+        _updateState.value=UpdateState.Empty
+    }
+    val updateOptionState: StateFlow<UpdateState> = _updateOptionsState
+
 
     val deleteTextAndColorState = MutableLiveData<Boolean>()
 
 
-    private val _deleteAllTextAndColorState = MutableLiveData<Boolean>()
+    private val _deleteAllTextAndColorState = MutableLiveData<Boolean?>()
     fun setNullForDeleteAllTextAndColorState() = _deleteAllTextAndColorState.postValue(null)
-    val deleteAllTextAndColorState: LiveData<Boolean> = _deleteAllTextAndColorState
+    val deleteAllTextAndColorState: LiveData<Boolean?> = _deleteAllTextAndColorState
 
     val getAllTextAndColorData = getAllTextAndColorUseCase.execute()
 
@@ -55,6 +60,10 @@ class HomeViewModel(
 
     fun updateTextAndColorToFireBase(textData: TextData) {
         safeUpdateTextAndColorToFireBase(textData)
+    }
+
+    fun updateOptionToFireBase(option: Int) {
+        safeUpdateOptionToFireBase(option)
     }
 
     fun saveTextAndColor(textData: TextData) {
@@ -96,9 +105,7 @@ class HomeViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = async { saveTextAndColorUseCase.execute(textData) }.await()
-                _saveTextAndColorState.postValue(result >= 0)
             } catch (e: Exception) {
-                _saveTextAndColorState.postValue(false)
             }
         }
     }
@@ -117,9 +124,20 @@ class HomeViewModel(
         } else _updateState.value = UpdateState.Error(Util.EVENT_STATE_NOT_INTERNET_CONNECTTED)
     }
 
-    companion object{
-        private const val DEFAULT_SEARCH=""
+    private fun safeUpdateOptionToFireBase(option: Int) {
+        if (Util.checkInternetAvailable(app)) {
+            viewModelScope.launch(Dispatchers.IO) {
+                _updateState.value = UpdateState.Loading
+                try {
+                    updateOptionUseCase.execute(option)
+                    _updateOptionsState.value = UpdateState.Success
+                } catch (e: Exception) {
+                    _updateOptionsState.value = UpdateState.Error(e.message!!)
+                }
+            }
+        } else _updateOptionsState.value = UpdateState.Error(Util.EVENT_STATE_NOT_INTERNET_CONNECTTED)
     }
+
 
     sealed class UpdateState {
         object Success : UpdateState()
@@ -136,7 +154,8 @@ class HomeViewModelFactory(
     private val deleteTextAndColorUseCase: DeleteTextAndColorUseCase,
     private val deleteAllTextAndColorUseCase: DeleteAllTextAndColorUseCase,
     private val getAllTextAndColorUseCase: GetAllTextAndColorUseCase,
-    private val getSearchedTextAndColorUseCase: GetSearchedTextAndColorUseCase
+    private val getSearchedTextAndColorUseCase: GetSearchedTextAndColorUseCase,
+    private val updateOptionUseCase: UpdateOptionUseCase
 ) : ViewModelProvider.AndroidViewModelFactory(app) {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HomeViewModel::class.java))
@@ -147,7 +166,8 @@ class HomeViewModelFactory(
                 deleteTextAndColorUseCase,
                 deleteAllTextAndColorUseCase,
                 getAllTextAndColorUseCase,
-                getSearchedTextAndColorUseCase
+                getSearchedTextAndColorUseCase,
+                updateOptionUseCase
             ) as T
         else throw IllegalAccessException("Not Found HomeViewModel")
     }
