@@ -10,5 +10,5 @@ class PixelDataTable {
     @PrimaryKey
     lateinit var id:String
 
-    lateinit var data:List<PixelDataTable>
+    lateinit var data:List<PixelData>
 }

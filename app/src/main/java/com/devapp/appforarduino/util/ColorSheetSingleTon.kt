@@ -1,6 +1,5 @@
 package com.devapp.appforarduino.util
 
-import android.content.Context
 import androidx.fragment.app.FragmentManager
 import dev.sasikanth.colorsheet.ColorSheet
 
@@ -14,7 +13,7 @@ class ColorSheetSingleTon private constructor(){
         private lateinit var colorSheet: ColorSheet
         @JvmStatic
         private var instance: ColorSheetSingleTon?=null
-        fun getInstance(context: Context): ColorSheetSingleTon {
+        fun getInstance(): ColorSheetSingleTon {
             if(instance !=null) return instance as ColorSheetSingleTon
             else synchronized(this){
                 return ColorSheetSingleTon()

@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.devapp.appforarduino.R
@@ -20,7 +19,6 @@ import com.devapp.appforarduino.util.Util
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class TextFragment : Fragment(R.layout.fragment_text) {
@@ -128,7 +126,7 @@ class TextFragment : Fragment(R.layout.fragment_text) {
     }
 
     private fun openBottomSheetColor() {
-        val colorSheetSingleTon = ColorSheetSingleTon.getInstance(requireContext())
+        val colorSheetSingleTon = ColorSheetSingleTon.getInstance()
         colorSheetSingleTon.setListener(object : ColorSheetSingleTon.ColorSheetListener {
             override fun onColorSelected(color: Int) {
                 binding.edtText.setTextColor(color)

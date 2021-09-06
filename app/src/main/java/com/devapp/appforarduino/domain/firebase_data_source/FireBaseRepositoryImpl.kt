@@ -12,8 +12,8 @@ class FireBaseRepositoryImpl(private val firebaseService: FireBaseService):FireB
          firebaseService.updateOption(option)
     }
 
-    override suspend fun updatePixelData(list: List<PixelData>) {
-        firebaseService.updatePixelData(list)
+    override suspend fun updateLaunchPad(list: List<PixelData>) {
+        firebaseService.updateLaunchPad(list)
     }
 
 }

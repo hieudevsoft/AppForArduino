@@ -104,7 +104,7 @@ class HomeViewModel(
     private fun safeSaveTextAndColor(textData: TextData) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val result = async { saveTextAndColorUseCase.execute(textData) }.await()
+                async { saveTextAndColorUseCase.execute(textData) }.await()
             } catch (e: Exception) {
             }
         }

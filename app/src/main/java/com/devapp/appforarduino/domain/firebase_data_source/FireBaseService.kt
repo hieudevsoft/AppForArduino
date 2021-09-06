@@ -16,7 +16,7 @@ class FireBaseService(private val database:FirebaseDatabase){
         val myRef = database.reference.child("options")
         myRef.setValue(option).await()
     }
-    suspend fun updatePixelData(list:List<PixelData>){
+    suspend fun updateLaunchPad(list:List<PixelData>){
         val myRef = database.reference.child("launchpad")
         myRef.setValue(Util.covertListColorToRgbArray(list)).await()
     }

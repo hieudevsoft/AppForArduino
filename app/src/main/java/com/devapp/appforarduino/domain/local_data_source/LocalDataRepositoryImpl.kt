@@ -1,6 +1,7 @@
 package com.devapp.appforarduino.domain.local_data_source
 
 import com.devapp.appforarduino.data.db.LocalDataService
+import com.devapp.appforarduino.data.model.PixelDataTable
 import com.devapp.appforarduino.data.model.TextData
 import kotlinx.coroutines.flow.Flow
 
@@ -23,5 +24,29 @@ class LocalDataRepositoryImpl(private val dao:LocalDataService):LocalDataReposit
 
     override fun getSearchedTextAndColor(query: String): Flow<List<TextData>> {
         return dao.getSearchedTextAndColor(query)
+    }
+
+    override suspend fun saveLaunchPad(pixelDataTable: PixelDataTable): Long {
+        return dao.saveLaunchPad(pixelDataTable)
+    }
+
+    override suspend fun deleteLaunchPad(pixelDataTable: PixelDataTable): Int {
+        return dao.deleteLaunchPad(pixelDataTable)
+    }
+
+    override fun getAllLaunchPad(): Flow<List<PixelDataTable>> {
+        return dao.getAllLaunchPad()
+    }
+
+    override suspend fun deleteAllLaunchPad() {
+        dao.deleteAllLaunchPad()
+    }
+
+    override fun getSearchedLaunchPad(query: String): Flow<List<PixelDataTable>> {
+        return dao.getSearchedLaunchPad(query)
+    }
+
+    override suspend fun checkIfExists(name: String): Int {
+        return dao.checkIfExists(name)
     }
 }

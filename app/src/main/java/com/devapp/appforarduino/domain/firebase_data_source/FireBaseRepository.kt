@@ -6,5 +6,5 @@ import com.devapp.appforarduino.data.model.TextData
 interface FireBaseRepository {
     suspend fun updateTextAndColorToFirebase(textData: TextData)
     suspend fun updateOptions(option:Int)
-    suspend fun updatePixelData(list:List<PixelData>)
+    suspend fun updateLaunchPad(list:List<PixelData>)
 }

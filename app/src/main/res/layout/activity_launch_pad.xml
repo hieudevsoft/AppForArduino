@@ -47,7 +47,7 @@
     </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/btnPush"
+            android:id="@+id/btnSaveLocal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
@@ -61,6 +61,23 @@
             android:layout_height="wrap_content"
             android:padding="12dp"
             android:src="@drawable/ic_save" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btnPushFireBase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="12dp"
+            app:cardUseCompatPadding="true">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:src="@drawable/ic_push" />
         </androidx.cardview.widget.CardView>
         <com.eyalbira.loadingdots.LoadingDots
             android:layout_marginStart="8dp"
