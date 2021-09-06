@@ -17,9 +17,7 @@ import com.devapp.appforarduino.ui.viewmodels.HomeViewModel
 import com.devapp.appforarduino.util.ColorSheetSingleTon
 import com.devapp.appforarduino.util.Util
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.withContext
 
 class TextFragment : Fragment(R.layout.fragment_text) {
     private var _binding: FragmentTextBinding? = null
@@ -89,19 +87,15 @@ class TextFragment : Fragment(R.layout.fragment_text) {
                 model.updateState.collect {
                     when(it){
                         is HomeViewModel.UpdateState.Loading->{
-                            withContext(Dispatchers.Main){
                                 binding.loadingDots.visibility = View.VISIBLE
-                            }
-
                         }
                         is HomeViewModel.UpdateState.Error->{
-                            withContext(Dispatchers.Main){
                                 binding.loadingDots.visibility = View.GONE
                                 Snackbar.make(binding.root,it.message,Snackbar.LENGTH_LONG).show()
-                            }
                         }
                         is HomeViewModel.UpdateState.Success->{
                             binding.loadingDots.visibility = View.GONE
+                            model.updateOptionToFireBase(1)
                             Snackbar.make(binding.root,"Cập nhật chữ thành công",Snackbar.LENGTH_LONG).show()
                             model.setEmptyForUpdateState()
                             model.saveTextAndColor(textData)

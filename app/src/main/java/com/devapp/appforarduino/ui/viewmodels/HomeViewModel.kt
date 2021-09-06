@@ -38,13 +38,6 @@ class HomeViewModel(
     }
     val updateState: StateFlow<UpdateState> = _updateState
 
-    private val _updateOptionsState = MutableStateFlow<UpdateState>(UpdateState.Empty)
-    fun setEmptyForUpdateOptionState() {
-        _updateState.value=UpdateState.Empty
-    }
-    val updateOptionState: StateFlow<UpdateState> = _updateOptionsState
-
-
     val deleteTextAndColorState = MutableLiveData<Boolean>()
 
 
@@ -127,15 +120,12 @@ class HomeViewModel(
     private fun safeUpdateOptionToFireBase(option: Int) {
         if (Util.checkInternetAvailable(app)) {
             viewModelScope.launch(Dispatchers.IO) {
-                _updateState.value = UpdateState.Loading
                 try {
                     updateOptionUseCase.execute(option)
-                    _updateOptionsState.value = UpdateState.Success
                 } catch (e: Exception) {
-                    _updateOptionsState.value = UpdateState.Error(e.message!!)
                 }
             }
-        } else _updateOptionsState.value = UpdateState.Error(Util.EVENT_STATE_NOT_INTERNET_CONNECTTED)
+        }
     }
 
 

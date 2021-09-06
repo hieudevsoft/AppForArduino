@@ -35,9 +35,7 @@ import com.devapp.appforarduino.util.ColorSheetSingleTon
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.withContext
 
 
 class LaunchPadActivity : AppCompatActivity() {
@@ -88,28 +86,19 @@ class LaunchPadActivity : AppCompatActivity() {
                 Log.d("TAG", "updateLaunchPadToFireBase: $it")
                 when(it){
                     is LaunchPadViewModel.UpdateState.Loading->{
-                        withContext(Dispatchers.Main){
                             binding.loadingDots.visibility = View.VISIBLE
-                        }
-
                     }
                     is LaunchPadViewModel.UpdateState.Error->{
-                        withContext(Dispatchers.Main){
-                            binding.loadingDots.visibility = View.GONE
-                            Snackbar.make(binding.root,it.message,Snackbar.LENGTH_LONG).show()
-                        }
+                        binding.loadingDots.visibility = View.GONE
+                        Snackbar.make(binding.root, it.message, Snackbar.LENGTH_LONG).show()
                     }
                     is LaunchPadViewModel.UpdateState.Success->{
                         binding.loadingDots.visibility = View.GONE
                         try {
                             launchPadViewModel.updateOptionToFireBase(3)
-                            withContext(Dispatchers.Main){
                                 Snackbar.make(binding.root,"Cập hình vẽ thành công",Snackbar.LENGTH_LONG).show()
-                            }
                         }catch (e:Exception){
-                            withContext(Dispatchers.Main){
                                 Snackbar.make(binding.root,"Có lỗi xảy ra khi cập nhật ~",Snackbar.LENGTH_LONG).show()
-                            }
                         }
                     }
                     else->{
