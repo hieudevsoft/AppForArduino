@@ -1,17 +1,13 @@
 package com.devapp.appforarduino.ui.adapter
 
 
-import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.devapp.appforarduino.data.model.TextData
 import com.devapp.appforarduino.databinding.ItemHistoryTextBinding
-import java.util.*
 
 
 class HistoryTextAdapter : RecyclerView.Adapter<HistoryTextAdapter.ViewHolder>() {

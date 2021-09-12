@@ -1,12 +1,7 @@
 package com.devapp.appforarduino.domain.local_data_source
 
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
 import com.devapp.appforarduino.data.model.PixelDataTable
 import com.devapp.appforarduino.data.model.TextData
-import com.devapp.appforarduino.util.Util
 import kotlinx.coroutines.flow.Flow
 
 interface LocalDataRepository {

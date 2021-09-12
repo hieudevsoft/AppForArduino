@@ -43,7 +43,7 @@ class StartedScreen : AppCompatActivity() {
         binding.tvDescription.translationX = 1000f
     }
 
-    fun setupAnimation() {
+    private fun setupAnimation() {
         binding.tvNameTeam.animate().apply {
             duration = 1500
             translationY(0f)

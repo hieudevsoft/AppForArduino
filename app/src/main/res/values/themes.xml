@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.AppForArduino" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <item name="windowNoTitle">true</item>
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowActionBarOverlay">true</item>
 

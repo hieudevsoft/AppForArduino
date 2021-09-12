@@ -11,7 +11,7 @@ import com.devapp.appforarduino.util.Util
 
 @Database(entities = [TextData::class,PixelDataTable::class], version = 1, exportSchema = false)
 @TypeConverters(Converter::class)
-abstract class LocalDataBase() : RoomDatabase() {
+abstract class LocalDataBase : RoomDatabase() {
 
     abstract fun getDao(): LocalDataService
 

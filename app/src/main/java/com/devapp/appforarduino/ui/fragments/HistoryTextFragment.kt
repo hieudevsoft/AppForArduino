@@ -24,8 +24,8 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 
 
-class HistoryTextFragment : Fragment(com.devapp.appforarduino.R.layout.fragment_history_text) {
-    private var _binding: FragmentHistoryTextBinding? = null
+class HistoryTextFragment : Fragment(R.layout.fragment_history_text) {
+    private lateinit var _binding: FragmentHistoryTextBinding
     private lateinit var historyTextAdapter: HistoryTextAdapter
     private val binding get() = _binding!!
     private lateinit var model: HomeViewModel
@@ -44,8 +44,7 @@ class HistoryTextFragment : Fragment(com.devapp.appforarduino.R.layout.fragment_
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var job: Job? = null
-        lifecycleScope.launchWhenStarted {
-
+        lifecycleScope.launchWhenCreated {
             model.getAllTextAndColorData.collect {
                 Log.d("TAG", "onViewCreated: dataAll $it")
                 if (it.isNotEmpty()) {
@@ -69,25 +68,25 @@ class HistoryTextFragment : Fragment(com.devapp.appforarduino.R.layout.fragment_
                 }
             }
         })
-            model.deleteAllTextAndColorState.observe(viewLifecycleOwner, {
-                Log.d("TAG", "onViewCreated: deleteall $it")
-                it?.let {
-                    if (it) {
-                        Snackbar.make(
-                            binding.root,
-                            "Bạn đã xóa thành công",
-                            Snackbar.LENGTH_LONG,
-                        ).show()
-                    } else {
-                        Snackbar.make(
-                            binding.root,
-                            "Bạn đã xóa thất bại",
-                            Snackbar.LENGTH_LONG,
-                        )
-                            .show()
-                    }
+        model.deleteAllTextAndColorState.observe(viewLifecycleOwner, {
+            Log.d("TAG", "onViewCreated: deleteall $it")
+            it?.let {
+                if (it) {
+                    Snackbar.make(
+                        binding.root,
+                        "Bạn đã xóa thành công",
+                        Snackbar.LENGTH_LONG,
+                    ).show()
+                } else {
+                    Snackbar.make(
+                        binding.root,
+                        "Bạn đã xóa thất bại",
+                        Snackbar.LENGTH_LONG,
+                    )
+                        .show()
                 }
-            })
+            }
+        })
 
         binding.btnTest.setOnClickListener {
            openDeleteAllDataDialog()
@@ -220,7 +219,6 @@ class HistoryTextFragment : Fragment(com.devapp.appforarduino.R.layout.fragment_
     }
 
     override fun onDestroyView() {
-        _binding = null
         model.deleteTextAndColorState.value = null
         model.currentQueryText.value = ""
         model.setNullForDeleteAllTextAndColorState()

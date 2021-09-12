@@ -47,7 +47,7 @@ class LaunchPadAdapter(val heightItem:Int): RecyclerView.Adapter<LaunchPadAdapte
 
     fun getViewHolderAtPosition(position: Int) = map[position]
 
-    var onItemLongClickListener:((Int)->Unit)?=null
+    private var onItemLongClickListener:((Int)->Unit)?=null
     fun setOnLongClickListener(listener:(Int)->Unit){
         onItemLongClickListener = listener
     }

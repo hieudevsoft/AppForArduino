@@ -8,19 +8,25 @@ import com.devapp.appforarduino.domain.local_data_source.LocalDataRepository
 import kotlinx.coroutines.flow.Flow
 
 class AppRepositoryImpl(
-    private val fireBaseRepository: FireBaseRepository,
+    private val fireBaseRepository: FireBaseRepository?=null,
     private val localDataRepository: LocalDataRepository
 ):AppRepository {
     override suspend fun updateTextAndColorToFirebase(textData: TextData) {
-        fireBaseRepository.updateTextAndColorToFirebase(textData)
+        if (fireBaseRepository != null) {
+            fireBaseRepository.updateTextAndColorToFirebase(textData)
+        }
     }
 
     override suspend fun updateOption(option: Int) {
-        fireBaseRepository.updateOptions(option)
+        if (fireBaseRepository != null) {
+            fireBaseRepository.updateOptions(option)
+        }
     }
 
     override suspend fun updateLaunchPad(array: List<PixelData>) {
-        fireBaseRepository.updateLaunchPad(array)
+        if (fireBaseRepository != null) {
+            fireBaseRepository.updateLaunchPad(array)
+        }
     }
 
     override suspend fun saveTextAndColor(textData: TextData): Long {

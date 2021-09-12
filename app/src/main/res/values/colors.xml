@@ -21,6 +21,7 @@
     <color name="light_blue">#3672ae</color>
     <color name="gray">#F4F4F4</color>
     <color name="card_color_text">#ffffb3</color>
+    <color name="color_card_visit_front">#1f1f1f</color>
 
 
     <array name="ColorSource">

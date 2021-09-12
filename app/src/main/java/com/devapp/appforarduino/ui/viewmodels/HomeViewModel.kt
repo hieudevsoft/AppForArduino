@@ -1,21 +1,17 @@
 package com.devapp.appforarduino.ui.viewmodels
 
+
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import com.devapp.appforarduino.data.model.TextData
 import com.devapp.appforarduino.domain.usecases.*
 import com.devapp.appforarduino.util.Util
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flatMapLatest
-
-
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomeViewModel(
     private val app: Application,
@@ -74,8 +70,8 @@ class HomeViewModel(
     private fun safeDeleteALlTextAndColor() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                async { deleteAllTextAndColorUseCase.execute() }.await()
-                _deleteAllTextAndColorState.postValue(true)
+		            withContext(Dispatchers.Default) { deleteAllTextAndColorUseCase.execute() }
+		            _deleteAllTextAndColorState.postValue(true)
             } catch (e: Exception) {
                 _deleteAllTextAndColorState.postValue(false)
             }
@@ -85,8 +81,11 @@ class HomeViewModel(
     private fun safeDeleteTextAndColor(textData: TextData) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val result = async { deleteTextAndColorUseCase.execute(textData) }.await()
-                deleteTextAndColorState.postValue(result >= 1)
+                val result =
+		                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+				                deleteTextAndColorUseCase.execute(textData)
+		                }
+		            deleteTextAndColorState.postValue(result >= 1)
             } catch (e: Exception) {
                 deleteTextAndColorState.postValue(false)
             }
@@ -97,7 +96,11 @@ class HomeViewModel(
     private fun safeSaveTextAndColor(textData: TextData) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                async { saveTextAndColorUseCase.execute(textData) }.await()
+		            withContext(Dispatchers.Default) {
+				            saveTextAndColorUseCase.execute(
+						            textData
+				            )
+		            }
             } catch (e: Exception) {
             }
         }

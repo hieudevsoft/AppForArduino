@@ -4,7 +4,7 @@ import androidx.fragment.app.FragmentManager
 import dev.sasikanth.colorsheet.ColorSheet
 
 class ColorSheetSingleTon private constructor(){
-    lateinit var colorSheetListener: ColorSheetListener
+    private lateinit var colorSheetListener: ColorSheetListener
     interface ColorSheetListener{
         fun onColorSelected(color:Int)
     }

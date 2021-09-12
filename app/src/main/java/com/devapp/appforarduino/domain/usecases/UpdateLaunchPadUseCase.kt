@@ -1,7 +1,6 @@
 package com.devapp.appforarduino.domain.usecases
 
 import com.devapp.appforarduino.data.model.PixelData
-import com.devapp.appforarduino.data.model.TextData
 import com.devapp.appforarduino.domain.app_repository.AppRepository
 
 class UpdateLaunchPadUseCase(private val appRepository: AppRepository){

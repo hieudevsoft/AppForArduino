@@ -9,7 +9,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavGraphNavigator
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.devapp.appforarduino.R
@@ -200,7 +199,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun openFragmentHistoryLaunchPad() {
-
+        navHostFragment.findNavController().navigate(R.id.action_global_historyLaunchPadFragment)
     }
 
     private fun openFragmentText() {
@@ -212,6 +211,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun openFragmentInfor(): Boolean {
+        navHostFragment.findNavController().navigate(R.id.action_global_informationFragment)
         return true
     }
 

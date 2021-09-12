@@ -13,20 +13,44 @@
         android:id="@+id/historyText"
         android:name="com.devapp.appforarduino.ui.fragments.HistoryTextFragment"
         android:label="HistoryText" />
-    <action android:id="@+id/action_global_historyText"
+    <action
+        android:id="@+id/action_global_historyText"
+        app:destination="@id/historyText"
         app:enterAnim="@anim/anim_slide_in_left"
         app:exitAnim="@anim/anim_slide_out_right"
         app:popEnterAnim="@anim/anim_slide_in_right"
-        app:popExitAnim="@anim/anim_slide_out_left"
-        app:destination="@id/historyText"/>
+        app:popExitAnim="@anim/anim_slide_out_left" />
     <fragment
         android:id="@+id/textFragment"
         android:name="com.devapp.appforarduino.ui.fragments.TextFragment"
         android:label="TextFragment" />
-    <action android:id="@+id/action_global_textFragment"
+    <action
+        android:id="@+id/action_global_textFragment"
+        app:destination="@id/textFragment"
         app:enterAnim="@anim/anim_slide_in_left"
         app:exitAnim="@anim/anim_slide_out_right"
         app:popEnterAnim="@anim/anim_slide_in_right"
-        app:popExitAnim="@anim/anim_slide_out_left"
-        app:destination="@id/textFragment"/>
+        app:popExitAnim="@anim/anim_slide_out_left" />
+    <fragment
+        android:id="@+id/historyLaunchPadFragment"
+        android:name="com.devapp.appforarduino.ui.fragments.HistoryLaunchPadFragment"
+        android:label="HistoryLaunchPadFragment" />
+    <action
+        android:id="@+id/action_global_historyLaunchPadFragment"
+        app:destination="@id/historyLaunchPadFragment"
+        app:enterAnim="@anim/anim_slide_in_left"
+        app:exitAnim="@anim/anim_slide_out_right"
+        app:popEnterAnim="@anim/anim_slide_in_right"
+        app:popExitAnim="@anim/anim_slide_out_left" />
+    <fragment
+        android:id="@+id/informationFragment"
+        android:name="com.devapp.appforarduino.ui.fragments.InformationFragment"
+        android:label="InformationFragment" />
+    <action
+        android:id="@+id/action_global_informationFragment"
+        app:destination="@id/informationFragment"
+        app:enterAnim="@anim/anim_slide_in_left"
+        app:exitAnim="@anim/anim_slide_out_right"
+        app:popEnterAnim="@anim/anim_slide_in_right"
+        app:popExitAnim="@anim/anim_slide_out_left" />
 </navigation>

@@ -1,11 +1,11 @@
 package com.devapp.appforarduino.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.devapp.appforarduino.R
 import com.devapp.appforarduino.ui.adapter.ViewPagerAdapter
@@ -26,8 +26,8 @@ class LandingPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewPagerAdapter = ViewPagerAdapter()
-        viewPager2=view.findViewById<ViewPager2>(R.id.viewPager2)
-        layoutPagePosition=view.findViewById<LinearLayout>(R.id.page_dot)
+        viewPager2=view.findViewById(R.id.viewPager2)
+        layoutPagePosition=view.findViewById(R.id.page_dot)
         viewPager2.adapter = viewPagerAdapter
         setupPagePosition()
     }

@@ -7,17 +7,15 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.text.Html
-import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.view.menu.MenuItemImpl
 import com.devapp.appforarduino.R
 import com.devapp.appforarduino.data.model.PixelData
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.lang.Exception
 
 object Util {
-
+    const val TIME_OUT_CHECK_EXISTS = 1500L
     const val SEARCH_DEFAULT_DELAY = 500L
     const val EVENT_STATE_NOT_INTERNET_CONNECTTED = "No Internet Connected"
     const val TABLE_TEXT_AND_COLOR ="table_text_and_color"
@@ -58,11 +56,11 @@ object Util {
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
             val activeNetwork = connectManager.activeNetwork
             val networkCapabilities = connectManager.getNetworkCapabilities(activeNetwork) ?: return false
-            when{
-                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> return true
-                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true
-                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> return true
-                else-> return false
+            return when{
+                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                else-> false
             }
         }else
         {
@@ -85,6 +83,6 @@ object Util {
 
     fun validDataText(value:String) = value.trim().replace("\n","")
 
-    fun mapRGBToList(map: Map<String,Int>) = map.map { (_,value)->value }
+    private fun mapRGBToList(map: Map<String,Int>) = map.map { (_,value)->value }
     fun covertListColorToRgbArray(list:List<PixelData>) = list.map { mapRGBToList(convertHexToRgb(it.color!!)) }.flatMap { it.toList() }
 }
