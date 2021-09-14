@@ -24,6 +24,11 @@
     <color name="color_card_visit_front">#1f1f1f</color>
 
 
+    <color name="ucrop_color_toolbar">@color/colorAccent</color>
+    <color name="ucrop_color_statusbar">@color/colorAccent</color>
+    <color name="ucrop_color_widget_active">@color/colorAccent</color>
+
+
     <array name="ColorSource">
         <item name="teal_700">#FF018786</item>
         <item name="MistyRose">#FFE4E1</item>

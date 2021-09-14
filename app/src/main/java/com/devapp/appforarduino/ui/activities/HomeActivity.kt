@@ -174,6 +174,9 @@ class HomeActivity : AppCompatActivity() {
             mBottomSheetBehavior!!.state = BottomSheetBehavior.STATE_COLLAPSED
         }
         tvOptionImage.setOnClickListener {
+            if(optionFeature==1)
+                openFragmentHistoryImage()
+            else openFragmentImage()
             mBottomSheetBehavior!!.state = BottomSheetBehavior.STATE_COLLAPSED
         }
         tvOptionLaunchPad.setOnClickListener {
@@ -189,6 +192,14 @@ class HomeActivity : AppCompatActivity() {
             optionFeature = 0
             openBottomDialogHistory()
         }
+    }
+
+    private fun openFragmentImage() {
+        navHostFragment.findNavController().navigate(R.id.action_global_imageFragment)
+    }
+
+    private fun openFragmentHistoryImage() {
+
     }
 
     private fun openActivityLaunchPad() {

@@ -53,4 +53,15 @@
         app:exitAnim="@anim/anim_slide_out_right"
         app:popEnterAnim="@anim/anim_slide_in_right"
         app:popExitAnim="@anim/anim_slide_out_left" />
+    <fragment
+        android:id="@+id/imageFragment"
+        android:name="com.devapp.appforarduino.ui.fragments.ImageFragment"
+        android:label="ImageFragment" />
+    <action
+        android:id="@+id/action_global_imageFragment"
+        app:destination="@id/imageFragment"
+        app:enterAnim="@anim/anim_slide_in_left"
+        app:exitAnim="@anim/anim_slide_out_right"
+        app:popEnterAnim="@anim/anim_slide_in_right"
+        app:popExitAnim="@anim/anim_slide_out_left" />
 </navigation>
