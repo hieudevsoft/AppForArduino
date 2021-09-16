@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.recyclerview.widget.RecyclerView
+        android:animationCache="true"
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:clickable="true"
+        android:focusable="true"
+        android:scaleType="center"
+        android:elevation="20dp"
+        app:fabSize="normal"
+        android:backgroundTint="@color/black"
+        app:rippleColor="@color/white"
+        app:backgroundTintMode="src_atop"
+        app:useCompatPadding="true"
+        android:src="@drawable/ic_delete_dialog"
+        app:borderWidth="0dp"
+        />
+
+</LinearLayout>

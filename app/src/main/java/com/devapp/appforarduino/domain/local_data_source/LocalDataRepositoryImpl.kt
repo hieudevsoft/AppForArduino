@@ -1,6 +1,7 @@
 package com.devapp.appforarduino.domain.local_data_source
 
 import com.devapp.appforarduino.data.db.LocalDataService
+import com.devapp.appforarduino.data.model.ImageData
 import com.devapp.appforarduino.data.model.PixelDataTable
 import com.devapp.appforarduino.data.model.TextData
 import kotlinx.coroutines.flow.Flow
@@ -48,5 +49,21 @@ class LocalDataRepositoryImpl(private val dao:LocalDataService):LocalDataReposit
 
     override suspend fun checkIfExists(name: String): Int {
         return dao.checkIfExists(name)
+    }
+
+    override suspend fun saveImage(imageData: ImageData): Long {
+        return dao.saveImage(imageData)
+    }
+
+    override suspend fun deleteImage(imageData: ImageData): Int {
+        return dao.deleteImage(imageData)
+    }
+
+    override fun getAllImage(): Flow<List<ImageData>> {
+        return dao.getAllImage()
+    }
+
+    override suspend fun deleteAllImage() {
+        return dao.deleteAllImage()
     }
 }

@@ -1,5 +1,6 @@
 package com.devapp.appforarduino.domain.app_repository
 
+import com.devapp.appforarduino.data.model.ImageData
 import com.devapp.appforarduino.data.model.PixelData
 import com.devapp.appforarduino.data.model.PixelDataTable
 import com.devapp.appforarduino.data.model.TextData
@@ -12,21 +13,15 @@ class AppRepositoryImpl(
     private val localDataRepository: LocalDataRepository
 ):AppRepository {
     override suspend fun updateTextAndColorToFirebase(textData: TextData) {
-        if (fireBaseRepository != null) {
-            fireBaseRepository.updateTextAndColorToFirebase(textData)
-        }
+        fireBaseRepository?.updateTextAndColorToFirebase(textData)
     }
 
     override suspend fun updateOption(option: Int) {
-        if (fireBaseRepository != null) {
-            fireBaseRepository.updateOptions(option)
-        }
+        fireBaseRepository?.updateOptions(option)
     }
 
     override suspend fun updateLaunchPad(array: List<PixelData>) {
-        if (fireBaseRepository != null) {
-            fireBaseRepository.updateLaunchPad(array)
-        }
+        fireBaseRepository?.updateLaunchPad(array)
     }
 
     override suspend fun saveTextAndColor(textData: TextData): Long {
@@ -71,5 +66,21 @@ class AppRepositoryImpl(
 
     override suspend fun checkIfExists(name: String): Int {
         return localDataRepository.checkIfExists(name)
+    }
+
+    override suspend fun saveImage(imageData: ImageData): Long {
+        return localDataRepository.saveImage(imageData)
+    }
+
+    override suspend fun deleteImage(imageData: ImageData): Int {
+        return localDataRepository.deleteImage(imageData)
+    }
+
+    override fun getAllImage(): Flow<List<ImageData>> {
+        return localDataRepository.getAllImage()
+    }
+
+    override suspend fun deleteAllImage() {
+        return localDataRepository.deleteAllImage()
     }
 }

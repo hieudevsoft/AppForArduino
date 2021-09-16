@@ -31,21 +31,25 @@
         <entry key="..\:/Devs/ANDROID_PROJECT/AppArduino/app/src/main/res/layout/fragment_history_text.xml" value="0.13148907103825136" />
         <entry key="..\:/Devs/ANDROID_PROJECT/AppArduino/app/src/main/res/layout/fragment_text.xml" value="0.13729508196721313" />
         <entry key="..\:/Devs/ANDROID_PROJECT/AppArduino/app/src/main/res/layout/layout_dialog_session_launch_pad.xml" value="0.18135245901639344" />
+        <entry key="app/src/main/res/drawables/custom_images/drawable/ic_delete.xml" value="0.34739583333333335" />
         <entry key="app/src/main/res/drawables/icons_app/drawable/ic_add.xml" value="0.2765625" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_launch_pad.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/layout/fagment_landing_page.xml" value="0.24895833333333334" />
+        <entry key="app/src/main/res/layout/fragment_history_image.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_history_launchpad.xml" value="0.20416666666666666" />
         <entry key="app/src/main/res/layout/fragment_history_text.xml" value="0.20416666666666666" />
         <entry key="app/src/main/res/layout/fragment_image.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_information_team.xml" value="0.2509057971014493" />
         <entry key="app/src/main/res/layout/fragment_text.xml" value="0.26358695652173914" />
         <entry key="app/src/main/res/layout/item_card_visit.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_history_image.xml" value="0.26875" />
         <entry key="app/src/main/res/layout/item_history_launchpad.xml" value="0.1890625" />
         <entry key="app/src/main/res/layout/item_history_text.xml" value="0.1890625" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

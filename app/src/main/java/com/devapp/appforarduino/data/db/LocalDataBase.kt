@@ -5,11 +5,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.devapp.appforarduino.data.model.ImageData
 import com.devapp.appforarduino.data.model.PixelDataTable
 import com.devapp.appforarduino.data.model.TextData
 import com.devapp.appforarduino.util.Util
 
-@Database(entities = [TextData::class,PixelDataTable::class], version = 1, exportSchema = false)
+@Database(entities = [TextData::class,PixelDataTable::class,ImageData::class], version = 1,
+exportSchema =
+false)
 @TypeConverters(Converter::class)
 abstract class LocalDataBase : RoomDatabase() {
 

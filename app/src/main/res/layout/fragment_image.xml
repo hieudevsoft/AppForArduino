@@ -143,24 +143,6 @@
         app:layout_constraintVertical_bias=".2">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/btnChooseColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?attr/selectableItemBackground"
-            app:cardCornerRadius="12dp"
-            app:cardUseCompatPadding="true">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:src="@drawable/ic_color" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
             android:id="@+id/btnSaveLocal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -1,6 +1,7 @@
 package com.devapp.appforarduino.data.db
 
 import androidx.room.*
+import com.devapp.appforarduino.data.model.ImageData
 import com.devapp.appforarduino.data.model.PixelDataTable
 import com.devapp.appforarduino.data.model.TextData
 import com.devapp.appforarduino.util.Util
@@ -9,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface LocalDataService {
 
+    //Queries text
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveTextAndColor(textData: TextData):Long
 
@@ -25,7 +27,7 @@ interface LocalDataService {
     fun getSearchedTextAndColor(query:String): Flow<List<TextData>>
 
 
-
+    //Queries Launch Pad
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveLaunchPad(pixelDataTable: PixelDataTable):Long
 
@@ -43,4 +45,18 @@ interface LocalDataService {
 
     @Query("SELECT COUNT(*) FROM ${Util.TABLE_PIXEL_AND_COLOR} WHERE id=:name")
     suspend fun checkIfExists(name:String):Int
+
+    //Queries Image
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun saveImage(imageData: ImageData):Long
+
+    @Delete
+    suspend fun deleteImage(imageData: ImageData):Int
+
+    @Query("SELECT * FROM ${Util.TABLE_IMAGE} ")
+    fun getAllImage(): Flow<List<ImageData>>
+
+    @Query("DELETE  FROM ${Util.TABLE_IMAGE} ")
+    suspend fun deleteAllImage()
+
 }

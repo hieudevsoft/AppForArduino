@@ -6,7 +6,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.graphics.Matrix
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -16,8 +16,13 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.devapp.appforarduino.R
+import com.devapp.appforarduino.data.model.ImageData
 import com.devapp.appforarduino.databinding.FragmentImageBinding
+import com.devapp.appforarduino.ui.activities.HomeActivity
+import com.devapp.appforarduino.ui.viewmodels.HomeViewModel
+import com.devapp.appforarduino.util.DrawableHelper
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import com.yalantis.ucrop.UCrop
@@ -36,23 +41,25 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
 				val fileCroppedTemp = "tempFileCroppedImage.png"
 				val RC_IMAGE_CROP = 123
 		}
-		private var show = true
+		private var show = false
 		private val TAG = "ImageFragment"
 		private lateinit var _binding: FragmentImageBinding
 		private val binding get() = _binding!!
 		private lateinit var bitmap: Bitmap
 		private lateinit var bitmapScaled: Bitmap
+		private lateinit var model:HomeViewModel
 		override fun onCreateView(
 				inflater: LayoutInflater,
 				container: ViewGroup?,
 				savedInstanceState: Bundle?
 		): View? {
 				_binding = FragmentImageBinding.inflate(inflater)
+				model = (requireActivity() as HomeActivity).homeViewModel
 				return binding.root
 		}
 
 		override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-				showHidePreviewLed(show)
+				showOrHidePreviewImage(show)
 				binding.btnChooseGalerry.setOnClickListener {
 						ImagePicker.with(this)
 								.galleryOnly()
@@ -80,8 +87,26 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
 				}
 				binding.btnChoosePreview.setOnClickListener {
 						show=!show
-						showHidePreviewLed(show)
+						showOrHidePreviewImage(show)
 				}
+
+				binding.btnSaveLocal.setOnClickListener {
+						lifecycleScope.launchWhenResumed {
+								val bitmapData = (binding.imgView.drawable as BitmapDrawable).bitmap
+								val stateSave = model.saveImage(ImageData(bitmapData))
+								if(stateSave>=0){
+										Snackbar.make(binding.root,"Bạn đã lưu lại thành công ",Snackbar.LENGTH_LONG)
+												.show()
+								}else{
+										Snackbar.make(binding.root,"Bạn đã lưu lại không thành công ",Snackbar
+												.LENGTH_LONG).setActionTextColor(Color.RED)
+												.show()
+								}
+
+						}
+				}
+
+
 
 				super.onViewCreated(view, savedInstanceState)
 		}
@@ -113,7 +138,8 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
 						if (resultUri != null) {
 								bitmap = BitmapFactory.decodeFile(File(resultUri.path).path)
 								bitmap?.let {
-										bitmapScaled = getResizedBitmap(bitmap, WIDHT_EXPECTED, HEIGHT_EXPECTED)!!
+										bitmapScaled = DrawableHelper.getResizedBitmap(bitmap, WIDHT_EXPECTED,
+												HEIGHT_EXPECTED)!!
 										binding.imgViewPreview.setImageBitmap(bitmapScaled)
 										binding.imgViewPreview.drawable.isFilterBitmap = false
 										Log.d(TAG, "on Bitmap Scaled Cropped: ${bitmapScaled?.height} ${bitmapScaled?.width} " +
@@ -135,30 +161,11 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
 						Log.d(TAG, "onActivityResult: save cache: $result")
 						out.flush()
 						out.close()
-						val bitmapScaled = getResizedBitmap(bitmap, WIDHT_EXPECTED, HEIGHT_EXPECTED)
+						val bitmapScaled = DrawableHelper.getResizedBitmap(bitmap, WIDHT_EXPECTED,
+								HEIGHT_EXPECTED)
 						binding.imgView.setImageURI(data?.data)
 						binding.imgViewPreview.setImageBitmap(bitmapScaled)
 						binding.imgViewPreview.drawable.isFilterBitmap = false
-						binding.imgView.viewTreeObserver.addOnPreDrawListener(object :
-								ViewTreeObserver.OnPreDrawListener {
-								override fun onPreDraw(): Boolean {
-										binding.imgView.getViewTreeObserver().removeOnPreDrawListener(this)
-										binding.imgView.requestLayout()
-										val width = binding.imgView.width
-										binding.imgView.layoutParams.height = width / 2
-										return true
-								}
-						})
-						binding.imgViewPreview.viewTreeObserver.addOnPreDrawListener(object :
-								ViewTreeObserver.OnPreDrawListener {
-								override fun onPreDraw(): Boolean {
-										binding.imgViewPreview.getViewTreeObserver().removeOnPreDrawListener(this)
-										binding.imgViewPreview.requestLayout()
-										val width = binding.imgViewPreview.width
-										binding.imgViewPreview.layoutParams.height = width / 2
-										return true
-								}
-						})
 				} else if (resultCode == ImagePicker.RESULT_ERROR) {
 						Snackbar.make(binding.root, ImagePicker.getError(data), Snackbar.LENGTH_LONG)
 								.setActionTextColor(Color.RED).show()
@@ -169,7 +176,7 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
 
 		}
 
-		private fun showHidePreviewLed(show:Boolean){
+		private fun showOrHidePreviewImage(show:Boolean){
 				if(show) {
 						Log.d(TAG, "showHidePreviewLed: VISIBLE")
 						binding.imgViewPreview.visibility = View.VISIBLE
@@ -180,18 +187,61 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
 				}
 		}
 
-		fun getResizedBitmap(bm: Bitmap, newWidth: Int, newHeight: Int): Bitmap? {
-				val width = bm.width
-				val height = bm.height
-				val scaleWidth = newWidth.toFloat() / width
-				val scaleHeight = newHeight.toFloat() / height
-				val matrix = Matrix()
-				matrix.postScale(scaleWidth, scaleHeight)
-				val resizedBitmap = Bitmap.createBitmap(
-						bm, 0, 0, width, height, matrix, false
-				)
-				bm.recycle()
-				return resizedBitmap
+		override fun onStart() {
+				setupPreDraw()
+				model.stateImageAndPreview.observe(viewLifecycleOwner,{
+						try {
+								bitmap = it[0] as Bitmap
+								bitmapScaled = it[1] as Bitmap
+								show = it[2] as Boolean
+								showOrHidePreviewImage(show)
+								binding.imgView.setImageBitmap(bitmap)
+								binding.imgViewPreview.setImageBitmap(bitmapScaled)
+								binding.imgViewPreview.drawable.isFilterBitmap = false
+						}catch (e:Exception){
+								e.printStackTrace()
+						}
+
+				})
+				super.onStart()
 		}
 
+		fun setupPreDraw(){
+				binding.imgView.viewTreeObserver.addOnPreDrawListener(object :
+						ViewTreeObserver.OnPreDrawListener {
+						override fun onPreDraw(): Boolean {
+								binding.imgView.getViewTreeObserver().removeOnPreDrawListener(this)
+								binding.imgView.requestLayout()
+								val width = binding.imgView.width
+								binding.imgView.layoutParams.height = width / 2
+								binding.imgViewPreview.viewTreeObserver.addOnPreDrawListener(object :
+										ViewTreeObserver.OnPreDrawListener {
+										override fun onPreDraw(): Boolean {
+												binding.imgViewPreview.getViewTreeObserver().removeOnPreDrawListener(this)
+												binding.imgViewPreview.requestLayout()
+												binding.imgViewPreview.layoutParams.height = width / 2
+												return true
+										}
+								})
+								return true
+						}
+				})
+		}
+
+		override fun onDestroyView() {
+				try {
+						if((binding.imgView.drawable as BitmapDrawable).bitmap!=null){
+								model.setStateImageAndPreview(
+										hashMapOf(
+												0 to (binding.imgView.drawable as BitmapDrawable).bitmap,
+												1 to (binding.imgViewPreview.drawable as BitmapDrawable).bitmap,
+												2 to show
+										)
+								)
+						}
+				}catch (e:Exception){
+
+				}
+				super.onDestroyView()
+		}
 }

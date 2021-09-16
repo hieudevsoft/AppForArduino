@@ -20,6 +20,7 @@ object Util {
     const val EVENT_STATE_NOT_INTERNET_CONNECTTED = "No Internet Connected"
     const val TABLE_TEXT_AND_COLOR ="table_text_and_color"
     const val TABLE_PIXEL_AND_COLOR ="table_pixel_and_color"
+    const val TABLE_IMAGE = "table_image"
     const val NAME_DB ="db"
     const val SLOGAN_PAGE_1 = "Linh hoạt và tiện dụng \n" +
             "trong trang trí và quảng cáo"

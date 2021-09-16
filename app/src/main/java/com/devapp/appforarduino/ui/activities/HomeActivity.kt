@@ -46,6 +46,10 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var deleteAllTextAndColorUseCase: DeleteAllTextAndColorUseCase
     private lateinit var searchedTextAndColorUseCase: GetSearchedTextAndColorUseCase
     private lateinit var getAllTextAndColorUseCase: GetAllTextAndColorUseCase
+    private lateinit var saveImageUseCase:SaveImageUseCase
+    private lateinit var deleteImageUseCase: DeleteImageUseCase
+    private lateinit var getAllImageUseCase: GetAllImageUseCase
+    private lateinit var deleteAllImageUseCase: DeleteAllImageUseCase
     lateinit var homeViewModel: HomeViewModel
 
     private lateinit var mGestureDetector: GestureDetector
@@ -104,6 +108,10 @@ class HomeActivity : AppCompatActivity() {
         deleteAllTextAndColorUseCase = DeleteAllTextAndColorUseCase(appRepository)
         searchedTextAndColorUseCase = GetSearchedTextAndColorUseCase(appRepository)
         getAllTextAndColorUseCase = GetAllTextAndColorUseCase(appRepository)
+        saveImageUseCase = SaveImageUseCase(appRepository)
+        deleteImageUseCase = DeleteImageUseCase(appRepository)
+        getAllImageUseCase = GetAllImageUseCase(appRepository)
+        deleteAllImageUseCase = DeleteAllImageUseCase(appRepository)
         homeViewModel = ViewModelProvider(
             this,
             HomeViewModelFactory(
@@ -114,7 +122,11 @@ class HomeActivity : AppCompatActivity() {
                 deleteAllTextAndColorUseCase,
                 getAllTextAndColorUseCase,
                 searchedTextAndColorUseCase,
-                updateOptionUseCase
+                updateOptionUseCase,
+                saveImageUseCase,
+                deleteImageUseCase,
+                getAllImageUseCase,
+                deleteAllImageUseCase
             )
         ).get(HomeViewModel::class.java)
     }
@@ -199,7 +211,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun openFragmentHistoryImage() {
-
+        navHostFragment.findNavController().navigate(R.id.action_global_historyImageFragment)
     }
 
     private fun openActivityLaunchPad() {
