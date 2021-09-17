@@ -52,6 +52,12 @@ object Util {
         )
     }
 
+    private fun covertHexToHexRemoveAlpha(color:String):Int{
+        val color = Color.parseColor(color)
+        val rgb = color and 0x00ffffff
+        return rgb
+    }
+
     fun checkInternetAvailable(context:Context):Boolean{
         val connectManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
@@ -85,5 +91,7 @@ object Util {
     fun validDataText(value:String) = value.trim().replace("\n","")
 
     private fun mapRGBToList(map: Map<String,Int>) = map.map { (_,value)->value }
-    fun covertListColorToRgbArray(list:List<PixelData>) = list.map { mapRGBToList(convertHexToRgb(it.color!!)) }.flatMap { it.toList() }
+    fun covertListColorToHexArray(list:List<PixelData>) = list.map {
+        Integer.toHexString(covertHexToHexRemoveAlpha(
+        (it.color!!)))}
 }

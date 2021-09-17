@@ -43,6 +43,7 @@ import kotlinx.coroutines.launch
 class LaunchPadActivity : AppCompatActivity() {
 		companion object {
 				val ACTION_RESET_LAUNCHPAD = "ACTION_RESET_LAUNCHPAD"
+				val TAG = "LaunchPadActivity"
 		}
 
 		private lateinit var binding: ActivityLaunchPadBinding
@@ -90,7 +91,6 @@ class LaunchPadActivity : AppCompatActivity() {
 				launchPadViewModel.updateLaunchPadToFireBase(launchPadAdapter.listPixel)
 				lifecycleScope.launchWhenStarted {
 						launchPadViewModel.updateState.collect {
-								Log.d("TAG", "updateLaunchPadToFireBase: $it")
 								when (it) {
 										is LaunchPadViewModel.UpdateState.Loading -> {
 												binding.loadingDots.visibility = View.VISIBLE
@@ -307,5 +307,3 @@ fun getListInjectData(column: Int, row: Int): List<PixelData> {
 		for (i in 0 until column * row) list.add(PixelData())
 		return list
 }
-
-

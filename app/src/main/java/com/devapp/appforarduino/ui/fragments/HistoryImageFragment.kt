@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.devapp.appforarduino.R
 import com.devapp.appforarduino.data.model.ImageData
@@ -46,7 +47,8 @@ class HistoryImageFragment:Fragment(R.layout.fragment_history_image) {
 						openDialogBuilderDelete(it)
 				}
 				historyImageAdapter.setOnItemClickListener {
-
+						val action = HistoryImageFragmentDirections.actionHistoryImageFragmentToImageFragment(it)
+						findNavController().navigate(action)
 				}
 				binding.fab.setOnClickListener {
 						openDialogBuilderDeleteAll()

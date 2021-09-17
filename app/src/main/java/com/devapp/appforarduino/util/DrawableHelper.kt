@@ -2,6 +2,8 @@ package com.devapp.appforarduino.util
 
 import android.graphics.Bitmap
 import android.graphics.Matrix
+import android.graphics.drawable.BitmapDrawable
+import android.widget.ImageView
 
 object DrawableHelper {
 		fun getResizedBitmap(bm: Bitmap, newWidth: Int, newHeight: Int): Bitmap? {
@@ -17,4 +19,5 @@ object DrawableHelper {
 				bm.recycle()
 				return resizedBitmap
 		}
+		fun getBitmap(imageView:ImageView) = (imageView.drawable as BitmapDrawable).bitmap
 }

@@ -17,9 +17,9 @@
         android:id="@+id/action_global_historyText"
         app:destination="@id/historyText"
         app:enterAnim="@anim/anim_slide_in_left"
-        app:exitAnim="@anim/anim_slide_out_right"
+        app:exitAnim="@anim/anim_slide_out_left"
         app:popEnterAnim="@anim/anim_slide_in_right"
-        app:popExitAnim="@anim/anim_slide_out_left" />
+        app:popExitAnim="@anim/anim_slide_out_right"/>
     <fragment
         android:id="@+id/textFragment"
         android:name="com.devapp.appforarduino.ui.fragments.TextFragment"
@@ -28,9 +28,9 @@
         android:id="@+id/action_global_textFragment"
         app:destination="@id/textFragment"
         app:enterAnim="@anim/anim_slide_in_left"
-        app:exitAnim="@anim/anim_slide_out_right"
+        app:exitAnim="@anim/anim_slide_out_left"
         app:popEnterAnim="@anim/anim_slide_in_right"
-        app:popExitAnim="@anim/anim_slide_out_left" />
+        app:popExitAnim="@anim/anim_slide_out_right" />
     <fragment
         android:id="@+id/historyLaunchPadFragment"
         android:name="com.devapp.appforarduino.ui.fragments.HistoryLaunchPadFragment"
@@ -39,9 +39,9 @@
         android:id="@+id/action_global_historyLaunchPadFragment"
         app:destination="@id/historyLaunchPadFragment"
         app:enterAnim="@anim/anim_slide_in_left"
-        app:exitAnim="@anim/anim_slide_out_right"
+        app:exitAnim="@anim/anim_slide_out_left"
         app:popEnterAnim="@anim/anim_slide_in_right"
-        app:popExitAnim="@anim/anim_slide_out_left" />
+        app:popExitAnim="@anim/anim_slide_out_right"/>
     <fragment
         android:id="@+id/informationFragment"
         android:name="com.devapp.appforarduino.ui.fragments.InformationFragment"
@@ -50,28 +50,43 @@
         android:id="@+id/action_global_informationFragment"
         app:destination="@id/informationFragment"
         app:enterAnim="@anim/anim_slide_in_left"
-        app:exitAnim="@anim/anim_slide_out_right"
+        app:exitAnim="@anim/anim_slide_out_left"
         app:popEnterAnim="@anim/anim_slide_in_right"
-        app:popExitAnim="@anim/anim_slide_out_left" />
+        app:popExitAnim="@anim/anim_slide_out_right" />
     <fragment
         android:id="@+id/imageFragment"
         android:name="com.devapp.appforarduino.ui.fragments.ImageFragment"
-        android:label="ImageFragment" />
+        android:label="ImageFragment" >
+        <argument
+            android:name="imageData"
+            android:defaultValue="@null"
+            app:argType="com.devapp.appforarduino.data.model.ImageData"
+            app:nullable="true" />
+    </fragment>
     <action
         android:id="@+id/action_global_imageFragment"
         app:destination="@id/imageFragment"
         app:enterAnim="@anim/anim_slide_in_left"
-        app:exitAnim="@anim/anim_slide_out_right"
+        app:exitAnim="@anim/anim_slide_out_left"
         app:popEnterAnim="@anim/anim_slide_in_right"
-        app:popExitAnim="@anim/anim_slide_out_left" />
+        app:popExitAnim="@anim/anim_slide_out_right"/>
     <fragment
         android:id="@+id/historyImageFragment"
         android:name="com.devapp.appforarduino.ui.fragments.HistoryImageFragment"
-        android:label="HistoryImageFragment" />
+        android:label="HistoryImageFragment" >
+        <action
+            android:id="@+id/action_historyImageFragment_to_imageFragment"
+            app:destination="@id/imageFragment"
+            app:enterAnim="@anim/anim_slide_in_left"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_right"
+            app:popExitAnim="@anim/anim_slide_out_right"
+            app:popUpTo="@id/historyImageFragment" />
+    </fragment>
     <action
         app:enterAnim="@anim/anim_slide_in_left"
-        app:exitAnim="@anim/anim_slide_out_right"
+        app:exitAnim="@anim/anim_slide_out_left"
         app:popEnterAnim="@anim/anim_slide_in_right"
-        app:popExitAnim="@anim/anim_slide_out_left"
+        app:popExitAnim="@anim/anim_slide_out_right"
         android:id="@+id/action_global_historyImageFragment" app:destination="@id/historyImageFragment"/>
 </navigation>

@@ -1,8 +1,10 @@
 package com.devapp.appforarduino.domain.firebase_data_source
 
+import android.util.Log
 import com.devapp.appforarduino.data.model.PixelData
 import com.devapp.appforarduino.data.model.PixelDataTable
 import com.devapp.appforarduino.data.model.TextData
+import com.devapp.appforarduino.ui.activities.LaunchPadActivity
 import com.devapp.appforarduino.util.Util
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
@@ -18,6 +20,8 @@ class FireBaseService(private val database:FirebaseDatabase){
     }
     suspend fun updateLaunchPad(list:List<PixelData>){
         val myRef = database.reference.child("launchpad")
-        myRef.setValue(Util.covertListColorToRgbArray(list)).await()
+        Log.d(LaunchPadActivity.TAG, "updateLaunchPadToFireBase: ${Util.covertListColorToHexArray
+            (list)}")
+        myRef.setValue(Util.covertListColorToHexArray(list)).await()
     }
 }

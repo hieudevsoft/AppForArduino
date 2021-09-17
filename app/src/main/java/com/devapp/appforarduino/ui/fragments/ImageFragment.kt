@@ -17,6 +17,7 @@ import android.view.ViewTreeObserver
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import com.devapp.appforarduino.R
 import com.devapp.appforarduino.data.model.ImageData
 import com.devapp.appforarduino.databinding.FragmentImageBinding
@@ -48,6 +49,7 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
 		private lateinit var bitmap: Bitmap
 		private lateinit var bitmapScaled: Bitmap
 		private lateinit var model:HomeViewModel
+		private val args:ImageFragmentArgs by navArgs()
 		override fun onCreateView(
 				inflater: LayoutInflater,
 				container: ViewGroup?,
@@ -59,6 +61,17 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
 		}
 
 		override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+				val myImageData = args.imageData
+				myImageData?.let {
+						binding.imgView.setImageBitmap(it.data)
+						saveToCacheImageFile(DrawableHelper.getBitmap(binding.imgView))
+						val bitmapTemp = it.data.copy(Bitmap.Config.ARGB_8888,false)
+						bitmapScaled = DrawableHelper.getResizedBitmap(bitmapTemp,WIDHT_EXPECTED,
+										HEIGHT_EXPECTED)!!
+						binding.imgViewPreview.setImageBitmap(bitmapScaled)
+						binding.imgViewPreview.drawable.isFilterBitmap = false
+
+				}
 				showOrHidePreviewImage(show)
 				binding.btnChooseGalerry.setOnClickListener {
 						ImagePicker.with(this)
@@ -140,7 +153,7 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
 								bitmap?.let {
 										bitmapScaled = DrawableHelper.getResizedBitmap(bitmap, WIDHT_EXPECTED,
 												HEIGHT_EXPECTED)!!
-										binding.imgViewPreview.setImageBitmap(bitmapScaled)
+										DrawableHelper.getBitmap(binding.imgView)
 										binding.imgViewPreview.drawable.isFilterBitmap = false
 										Log.d(TAG, "on Bitmap Scaled Cropped: ${bitmapScaled?.height} ${bitmapScaled?.width} " +
 													"${bitmapScaled?.density}")
@@ -155,16 +168,11 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
 						val file = ImagePicker.getFile(data)
 						bitmap = BitmapFactory.decodeFile(file?.path)
 						binding.imgViewPreview.setImageBitmap(bitmap)
-						val tempFile = File(requireActivity().cacheDir, fileOriginalTemp)
-						val out = FileOutputStream(tempFile)
-						val result = bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
-						Log.d(TAG, "onActivityResult: save cache: $result")
-						out.flush()
-						out.close()
-						val bitmapScaled = DrawableHelper.getResizedBitmap(bitmap, WIDHT_EXPECTED,
-								HEIGHT_EXPECTED)
+						saveToCacheImageFile(bitmap)
+						bitmapScaled = DrawableHelper.getResizedBitmap(bitmap, WIDHT_EXPECTED,
+								HEIGHT_EXPECTED)!!
 						binding.imgView.setImageURI(data?.data)
-						binding.imgViewPreview.setImageBitmap(bitmapScaled)
+						DrawableHelper.getBitmap(binding.imgView)
 						binding.imgViewPreview.drawable.isFilterBitmap = false
 				} else if (resultCode == ImagePicker.RESULT_ERROR) {
 						Snackbar.make(binding.root, ImagePicker.getError(data), Snackbar.LENGTH_LONG)
@@ -174,6 +182,15 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
 								.setActionTextColor(Color.RED).show()
 				}
 
+		}
+
+		private fun saveToCacheImageFile(bitmapResult: Bitmap){
+				val tempFile = File(requireActivity().cacheDir, fileOriginalTemp)
+				val out = FileOutputStream(tempFile)
+				val result = bitmapResult.compress(Bitmap.CompressFormat.PNG, 100, out)
+				Log.d(TAG, "onActivityResult: save cache: $result")
+				out.flush()
+				out.close()
 		}
 
 		private fun showOrHidePreviewImage(show:Boolean){
@@ -196,7 +213,7 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
 								show = it[2] as Boolean
 								showOrHidePreviewImage(show)
 								binding.imgView.setImageBitmap(bitmap)
-								binding.imgViewPreview.setImageBitmap(bitmapScaled)
+								DrawableHelper.getBitmap(binding.imgView)
 								binding.imgViewPreview.drawable.isFilterBitmap = false
 						}catch (e:Exception){
 								e.printStackTrace()
