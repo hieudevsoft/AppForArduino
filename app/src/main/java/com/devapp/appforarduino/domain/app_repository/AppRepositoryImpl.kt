@@ -1,5 +1,6 @@
 package com.devapp.appforarduino.domain.app_repository
 
+import android.graphics.Bitmap
 import com.devapp.appforarduino.data.model.ImageData
 import com.devapp.appforarduino.data.model.PixelData
 import com.devapp.appforarduino.data.model.PixelDataTable
@@ -22,6 +23,10 @@ class AppRepositoryImpl(
 
     override suspend fun updateLaunchPad(array: List<PixelData>) {
         fireBaseRepository?.updateLaunchPad(array)
+    }
+
+    override suspend fun updateImage(bitmap: Bitmap) {
+        fireBaseRepository?.updateImage(bitmap)
     }
 
     override suspend fun saveTextAndColor(textData: TextData): Long {

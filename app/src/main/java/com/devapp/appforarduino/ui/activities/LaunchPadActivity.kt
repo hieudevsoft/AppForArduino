@@ -97,7 +97,9 @@ class LaunchPadActivity : AppCompatActivity() {
 										}
 										is LaunchPadViewModel.UpdateState.Error -> {
 												binding.loadingDots.visibility = View.GONE
-												Snackbar.make(binding.root, it.message, Snackbar.LENGTH_LONG).show()
+												Snackbar.make(binding.root, it.message, Snackbar.LENGTH_LONG)
+														.setActionTextColor(Color.RED)
+														.show()
 										}
 										is LaunchPadViewModel.UpdateState.Success -> {
 												binding.loadingDots.visibility = View.GONE
@@ -113,7 +115,9 @@ class LaunchPadActivity : AppCompatActivity() {
 																binding.root,
 																"Có lỗi xảy ra khi cập nhật ~",
 																Snackbar.LENGTH_LONG
-														).show()
+														)
+																.setActionTextColor(Color.RED)
+																.show()
 												}
 										}
 										else -> {

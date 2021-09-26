@@ -2,6 +2,7 @@ package com.devapp.appforarduino.ui.viewmodels
 
 
 import android.app.Application
+import android.graphics.Bitmap
 import androidx.lifecycle.*
 import com.devapp.appforarduino.data.model.ImageData
 import com.devapp.appforarduino.data.model.TextData
@@ -26,7 +27,8 @@ class HomeViewModel(
 		private val saveImageUseCase: SaveImageUseCase,
 		private val deleteImageUseCase: DeleteImageUseCase,
 		private val getAllImageUseCase: GetAllImageUseCase,
-		private val deleteAllImageUseCase: DeleteAllImageUseCase
+		private val deleteAllImageUseCase: DeleteAllImageUseCase,
+		private val updateImageUseCase: UpdateImageUseCase
 ) : AndroidViewModel(app) {
 		companion object {
 				private val TAG = "HomeViewModel"
@@ -44,8 +46,12 @@ class HomeViewModel(
 		fun setEmptyForUpdateState() {
 				_updateState.value = UpdateState.Empty
 		}
-
 		val updateState: StateFlow<UpdateState> = _updateState
+		private val _updateImageState = MutableStateFlow<UpdateState>(UpdateState.Empty)
+		fun setEmptyForUpdateImageState() {
+				_updateImageState.value = UpdateState.Empty
+		}
+		val updateImageState: StateFlow<UpdateState> = _updateImageState
 
 		val deleteTextAndColorState = MutableLiveData<Boolean>()
 
@@ -63,6 +69,10 @@ class HomeViewModel(
 
 		fun updateTextAndColorToFireBase(textData: TextData) {
 				safeUpdateTextAndColorToFireBase(textData)
+		}
+
+		fun updateImageToFireBase(bitmap: Bitmap){
+				safeUpdateImageToFireBase(bitmap)
 		}
 
 		fun updateOptionToFireBase(option: Int) {
@@ -156,6 +166,20 @@ class HomeViewModel(
 				} else _updateState.value = UpdateState.Error(Util.EVENT_STATE_NOT_INTERNET_CONNECTTED)
 		}
 
+		private fun safeUpdateImageToFireBase(bitmap: Bitmap) {
+				if (Util.checkInternetAvailable(app)) {
+						viewModelScope.launch(Dispatchers.IO) {
+								_updateImageState.value = UpdateState.Loading
+								try {
+										updateImageUseCase.execute(bitmap)
+										_updateImageState.value = UpdateState.Success
+								} catch (e: Exception) {
+										_updateImageState.value = UpdateState.Error(e.message!!)
+								}
+						}
+				} else _updateImageState.value = UpdateState.Error(Util.EVENT_STATE_NOT_INTERNET_CONNECTTED)
+		}
+
 		private fun safeUpdateOptionToFireBase(option: Int) {
 				if (Util.checkInternetAvailable(app)) {
 						viewModelScope.launch(Dispatchers.IO) {
@@ -188,7 +212,8 @@ class HomeViewModelFactory(
 		private val saveImageUseCase: SaveImageUseCase,
 		private val deleteImageUseCase: DeleteImageUseCase,
 		private val getAllImageUseCase: GetAllImageUseCase,
-		private val deleteAllImageUseCase: DeleteAllImageUseCase
+		private val deleteAllImageUseCase: DeleteAllImageUseCase,
+		private val updateImageUseCase: UpdateImageUseCase
 ) : ViewModelProvider.AndroidViewModelFactory(app) {
 		override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 				if (modelClass.isAssignableFrom(HomeViewModel::class.java))
@@ -204,7 +229,8 @@ class HomeViewModelFactory(
 								saveImageUseCase,
 								deleteImageUseCase,
 								getAllImageUseCase,
-								deleteAllImageUseCase
+								deleteAllImageUseCase,
+								updateImageUseCase
 						) as T
 				else throw IllegalAccessException("Not Found HomeViewModel")
 		}

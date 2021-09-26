@@ -1,5 +1,6 @@
 package com.devapp.appforarduino.domain.firebase_data_source
 
+import android.graphics.Bitmap
 import android.util.Log
 import com.devapp.appforarduino.data.model.PixelData
 import com.devapp.appforarduino.data.model.PixelDataTable
@@ -20,8 +21,12 @@ class FireBaseService(private val database:FirebaseDatabase){
     }
     suspend fun updateLaunchPad(list:List<PixelData>){
         val myRef = database.reference.child("launchpad")
-        Log.d(LaunchPadActivity.TAG, "updateLaunchPadToFireBase: ${Util.covertListColorToHexArray
-            (list)}")
         myRef.setValue(Util.covertListColorToHexArray(list)).await()
     }
+    suspend fun updateImage(bitmap:Bitmap){
+        val myRef = database.reference.child("image")
+        Log.d("testimage", "updateImage: ${Util.convertBitmapToListHexColor(bitmap)}")
+        myRef.setValue(Util.convertBitmapToListHexColor(bitmap)).await()
+    }
+
 }

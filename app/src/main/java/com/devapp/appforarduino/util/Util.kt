@@ -2,6 +2,7 @@ package com.devapp.appforarduino.util
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -56,6 +57,19 @@ object Util {
         val color = Color.parseColor(color)
         val rgb = color and 0x00ffffff
         return rgb
+    }
+
+    fun convertBitmapToListHexColor(bitmapPush:Bitmap):List<String>{
+        val listColor = mutableListOf<String>()
+        for(i in 0..bitmapPush.height-1)
+        {
+            for(j in 0..bitmapPush.width-1){
+                val pixel = bitmapPush.getPixel(j,i)
+                val color = Integer.toHexString(pixel)
+                listColor.add(Integer.toHexString(covertHexToHexRemoveAlpha("#"+color)))
+            }
+        }
+        return listColor.toList()
     }
 
     fun checkInternetAvailable(context:Context):Boolean{

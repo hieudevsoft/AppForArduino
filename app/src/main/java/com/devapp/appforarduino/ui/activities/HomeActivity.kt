@@ -50,6 +50,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var deleteImageUseCase: DeleteImageUseCase
     private lateinit var getAllImageUseCase: GetAllImageUseCase
     private lateinit var deleteAllImageUseCase: DeleteAllImageUseCase
+    private lateinit var updateImageUseCase: UpdateImageUseCase
     lateinit var homeViewModel: HomeViewModel
 
     private lateinit var mGestureDetector: GestureDetector
@@ -112,6 +113,7 @@ class HomeActivity : AppCompatActivity() {
         deleteImageUseCase = DeleteImageUseCase(appRepository)
         getAllImageUseCase = GetAllImageUseCase(appRepository)
         deleteAllImageUseCase = DeleteAllImageUseCase(appRepository)
+        updateImageUseCase = UpdateImageUseCase(appRepository)
         homeViewModel = ViewModelProvider(
             this,
             HomeViewModelFactory(
@@ -126,7 +128,8 @@ class HomeActivity : AppCompatActivity() {
                 saveImageUseCase,
                 deleteImageUseCase,
                 getAllImageUseCase,
-                deleteAllImageUseCase
+                deleteAllImageUseCase,
+                updateImageUseCase
             )
         ).get(HomeViewModel::class.java)
     }

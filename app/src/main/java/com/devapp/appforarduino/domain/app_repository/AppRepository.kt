@@ -1,5 +1,6 @@
 package com.devapp.appforarduino.domain.app_repository
 
+import android.graphics.Bitmap
 import com.devapp.appforarduino.data.model.ImageData
 import com.devapp.appforarduino.data.model.PixelData
 import com.devapp.appforarduino.data.model.PixelDataTable
@@ -13,6 +14,7 @@ interface AppRepository {
     suspend fun updateTextAndColorToFirebase(textData: TextData)
     suspend fun updateOption(option:Int)
     suspend fun updateLaunchPad(array:List<PixelData>)
+    suspend fun updateImage(bitmap: Bitmap)
 
     //Operation Local Data Source
 
