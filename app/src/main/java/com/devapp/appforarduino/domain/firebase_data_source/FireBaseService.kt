@@ -25,7 +25,6 @@ class FireBaseService(private val database:FirebaseDatabase){
     }
     suspend fun updateImage(bitmap:Bitmap){
         val myRef = database.reference.child("image")
-        Log.d("testimage", "updateImage: ${Util.convertBitmapToListHexColor(bitmap)}")
         myRef.setValue(Util.convertBitmapToListHexColor(bitmap)).await()
     }
 

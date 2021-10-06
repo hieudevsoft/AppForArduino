@@ -87,8 +87,7 @@
                 android:id="@+id/loadingDots"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="10dp"
                 app:LoadingDots_auto_play="true"
                 app:LoadingDots_jump_duration="100"
                 app:LoadingDots_dots_count="4"
@@ -109,6 +108,12 @@
                 android:text="Hiện chữ"
                 android:textAllCaps="false"
                 android:textColor="@color/white" />
+            <CheckBox
+                android:id="@+id/text_running"
+                android:text="Chữ chạy"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 

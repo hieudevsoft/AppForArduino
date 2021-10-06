@@ -105,6 +105,8 @@ class LaunchPadActivity : AppCompatActivity() {
 												binding.loadingDots.visibility = View.GONE
 												try {
 														launchPadViewModel.updateOptionToFireBase(3)
+														FirebaseDatabase.getInstance().reference.child("resetLaunchpad")
+																.setValue(2)
 														Snackbar.make(
 																binding.root,
 																"Cập hình vẽ thành công",

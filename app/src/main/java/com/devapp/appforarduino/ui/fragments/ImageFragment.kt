@@ -25,8 +25,10 @@ import com.devapp.appforarduino.ui.activities.HomeActivity
 import com.devapp.appforarduino.ui.viewmodels.HomeViewModel
 import com.devapp.appforarduino.ui.viewmodels.LaunchPadViewModel
 import com.devapp.appforarduino.util.DrawableHelper
+import com.devapp.appforarduino.util.Util
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.database.FirebaseDatabase
 import com.yalantis.ucrop.UCrop
 import kotlinx.coroutines.flow.collect
 import java.io.File
@@ -99,7 +101,6 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
 								.maxResultSize(MAX_WIDTH, MAX_HEIGHT)
 								.start()
 				}
-
 				binding.btnChooseCrop.setOnClickListener {
 						processCropImage()
 				}
@@ -129,9 +130,16 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
 				subscribersObserver()
 
 				binding.btnPushFireBase.setOnClickListener {
-						val bitmapPush = (binding.imgViewPreview.drawable as BitmapDrawable).bitmap
-						model.updateImageToFireBase(bitmapPush)
+						try {
+								bitmapScaled?.let {
+										model.updateImageToFireBase(bitmapScaled)
+								}
+						}catch (e:Exception){
+								Toast.makeText(requireContext(), "Có lỗi xảy ra, vui lòng thử lại", Toast
+										.LENGTH_SHORT).show()
+						}
 				}
+
 
 				super.onViewCreated(view, savedInstanceState)
 		}
@@ -153,6 +161,7 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
 												binding.loadingDots.visibility = View.GONE
 												try {
 														model.updateOptionToFireBase(2)
+														FirebaseDatabase.getInstance().reference.child("reset").setValue(2)
 														Snackbar.make(
 																binding.root,
 																"Cập hình ảnh thành công",

@@ -8,6 +8,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.text.Html
+import android.util.Log
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.view.menu.MenuItemImpl
@@ -66,7 +67,7 @@ object Util {
             for(j in 0..bitmapPush.width-1){
                 val pixel = bitmapPush.getPixel(j,i)
                 val color = Integer.toHexString(pixel)
-                listColor.add(Integer.toHexString(covertHexToHexRemoveAlpha("#"+color)))
+                listColor.add(color.substring(2))
             }
         }
         return listColor.toList()
